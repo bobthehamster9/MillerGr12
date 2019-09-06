@@ -8,8 +8,8 @@ public class Project {
         Review r = new Review();
 
         //r.Review1();
-        r.Review2();
-        //r.test();
+        //r.Review2();
+        r.test();
     }
 
 }
