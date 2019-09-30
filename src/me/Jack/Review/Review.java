@@ -82,6 +82,7 @@ public class Review {
             }
         }
 
+
         System.out.println("Women: " + women);
         System.out.println("Men: " + men);
 
