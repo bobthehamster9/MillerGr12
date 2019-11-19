@@ -7,10 +7,8 @@ import java.util.*;
 public class CalculateInterest {
 
     HashMap<String, String> accounts = new HashMap<>();
-
     Methods methods = new Methods();
-
-    private static double interestRates[] = {0.005, 0.0025, 0.0225, 0.02, 0.025};
+    private static double interestRates[] = {0.005/12, 0.0025/365, 0.02/365, 0.0225/12, 0.025/12};
 
     private ArrayList<String> readFile() throws IOException {
         ArrayList<String> rawAccounts = new ArrayList<>();
@@ -45,10 +43,10 @@ public class CalculateInterest {
                 total += Double.parseDouble(balances[k]);
             }
             totalBal[i] = total;
-
+            System.out.println(total);
             Arrays.sort(doubleBalance);
+            System.out.println(doubleBalance[1]);
             accountsMin.put(accID, doubleBalance[1] + "," + totalBal[i]);
-
         }
         return accountsMin;
     }
@@ -68,9 +66,9 @@ public class CalculateInterest {
             if(key.contains("CMI")){ //Monthly
                 itsTooEarly.put(key, methods.round(monthly * interestRates[0], 2));
             } else if (key.contains("SDI")){ //Daily
-                itsTooEarly.put(key, methods.round(daily * interestRates[1], 2));
-            } else if (key.contains("CDI")){ //Daily
                 itsTooEarly.put(key, methods.round(daily * interestRates[2], 2));
+            } else if (key.contains("CDI")){ //Daily
+                itsTooEarly.put(key, methods.round(daily * interestRates[1], 2));
             } else if (key.contains("SMI")){ //Monthly
                 itsTooEarly.put(key, methods.round(monthly * interestRates[3], 2));
             } else if (key.contains("STF")){ //Monthly
@@ -101,5 +99,4 @@ public class CalculateInterest {
     public void run() throws IOException {
         writeFile(calculateInterest(setupAccounts(readFile())));
     }
-
 }

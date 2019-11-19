@@ -1,9 +1,6 @@
 package me.Jack;
 
-import me.Jack.Projects.AdvancedMethods;
-import me.Jack.Projects.CalculateInterest;
-import me.Jack.Projects.QuadraticFactor;
-import me.Jack.Projects.SimpleMethods;
+import me.Jack.Projects.*;
 import me.Jack.Review.*;
 
 import java.io.IOException;
@@ -16,7 +13,15 @@ public class Project {
         AdvancedMethods am =  new AdvancedMethods();
         QuadraticFactor qf = new QuadraticFactor();
         CalculateInterest ci = new CalculateInterest();
-        ci.run();
+        ArrayExercises ae = new ArrayExercises();
+        PrintACheque pac = new PrintACheque();
+        StoreStats ss = new StoreStats();
+        CalendarDates cd = new CalendarDates();
+        cd.run();
+        //ss.run();
+        //pac.run();
+        //ae.run();
+        //ci.run();
         //qf.run();
         //am.run();
         //sm.run();

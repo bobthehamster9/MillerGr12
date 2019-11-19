@@ -149,7 +149,23 @@ public class CalendarDates {
             }
         }
 
-        System.out.println("Enter a province | AB, BC, MB, NB, NL, NT, NS, NU, ON, PEI, QB, SK, YK");
+        //Semi Monthly Pay
+        System.out.println("\n\nSemi Monthly Pay\n");
+        for (int i = 0; i < 3; i++) {
+            int monthVar = (quarter * 3) - i -1;
+            calendar.set(Calendar.MONTH, monthVar);
+            calendar.set(Calendar.DAY_OF_MONTH, 15);
+            if(calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
+                calendar.add(Calendar.DAY_OF_MONTH, -1);
+            } else if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+                calendar.add(Calendar.DAY_OF_MONTH, -2);
+            }
+            System.out.println(calendar.getTime());
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            System.out.println(calendar.getTime());
+        }
+
+        System.out.println("\n\nEnter a province | AB, BC, MB, NB, NL, NT, NS, NU, ON, PEI, QB, SK, YK");
         province = scanner.next();
         System.out.println("Enter the starting week");
         startWeek = scanner.nextInt();
