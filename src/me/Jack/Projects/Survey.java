@@ -6,34 +6,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class Survey extends JFrame implements ActionListener {
 
-    JLabel gradeLabel = new JLabel("Grade");
+    int activityCount = 0;
+
+    JFrame frame = new JFrame("Survey");
+
     String[] grades = {"Grade 9", "Grade 10", "Grade 11", "Grade 12"};
     JComboBox gradesBox = new JComboBox<>(grades);
 
-    JLabel genderLabel = new JLabel("Gender");
     String [] genders = {"Male", "Female"};
     JComboBox gendersBox = new JComboBox<>(genders);
 
-    JLabel ageLabel = new JLabel("Age");
     SpinnerModel model = new SpinnerNumberModel(1, 1, 100, 1);
     JSpinner age = new JSpinner(model);
 
-    JLabel firstSemLabel = new JLabel("Classes First Semester");
     SpinnerModel firstSemModel = new SpinnerNumberModel(1, 1, 5, 1);
     JSpinner classesFirstSem = new JSpinner(firstSemModel);
 
-    JLabel secondSemLabel = new JLabel("Classes First Semester");
     SpinnerModel secondSemModel = new SpinnerNumberModel(1, 1, 5, 1);
     JSpinner classesSecondSem = new JSpinner(secondSemModel);
 
-    JLabel studentAverage = new JLabel("Your Average");
     SpinnerModel averageModel = new SpinnerNumberModel(1, 1, 100, 1);
     JSpinner average = new JSpinner(averageModel);
 
-    JLabel anticipatedAverageLabel = new JLabel("Anticipated Average");
     SpinnerModel anticipatedAverageModel = new SpinnerNumberModel(1, 1, 100, 1);
     JSpinner anticipatedAverage = new JSpinner(anticipatedAverageModel);
 
@@ -43,20 +42,22 @@ public class Survey extends JFrame implements ActionListener {
     JRadioButton robotics = new JRadioButton("Robotics");
     JRadioButton dramaClub = new JRadioButton("Drama Club");
 
-    ButtonGroup activites = new ButtonGroup();
+    JTextField otherActivities = new JTextField(10);
+
+    JLabel activitiesSelected = new JLabel();
 
     String [] options = {"Yes", "No"};
+    JComboBox busOptions = new JComboBox<>(options);
 
     JSlider schoolRating = new JSlider(JSlider.HORIZONTAL, 1, 5, 1);
 
     JSlider GDHSRating = new JSlider(JSlider.HORIZONTAL, 1, 5, 1);
 
-    GridLayout gridLayout = new GridLayout(14,2, 30, 20);
+    JButton save = new JButton("Save");
+
+    GridLayout gridLayout = new GridLayout(16,2, 30, 20);
 
     public void run(){
-        JFrame frame = new JFrame("Survey");
-        frame.setSize(800, 1400);
-        frame.setLocation(300, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         gradesBox.setActionCommand("grade");
@@ -67,41 +68,45 @@ public class Survey extends JFrame implements ActionListener {
         gendersBox.setSelectedIndex(0);
         gendersBox.addActionListener(this);
 
-        activites.add(basketball);
-        activites.add(football);
-        activites.add(baseball);
-        activites.add(robotics);
-        activites.add(dramaClub);
+        basketball.addActionListener(this);
+        football.addActionListener(this);
+        baseball.addActionListener(this);
+        robotics.addActionListener(this);
+        dramaClub.addActionListener(this);
 
         schoolRating.setMajorTickSpacing(1);
         schoolRating.setPaintLabels(true);
         schoolRating.setPaintTicks(true);
 
-        schoolRating.setMajorTickSpacing(1);
-        schoolRating.setPaintLabels(true);
-        schoolRating.setPaintTicks(true);
+        GDHSRating.setMajorTickSpacing(1);
+        GDHSRating.setPaintLabels(true);
+        GDHSRating.setPaintTicks(true);
+
+        busOptions.setSelectedIndex(1);
+
+        save.addActionListener(this);
 
         frame.setLayout(gridLayout);
 
-        frame.add(gradeLabel);
+        frame.add(new JLabel("Grade"));
         frame.add(gradesBox);
 
-        frame.add(genderLabel);
+        frame.add(new JLabel("Gender"));
         frame.add(gendersBox);
 
-        frame.add(ageLabel);
+        frame.add(new JLabel("Age"));
         frame.add(age);
 
-        frame.add(firstSemLabel);
+        frame.add(new JLabel("Classes First Semester"));
         frame.add(classesFirstSem);
 
-        frame.add(secondSemLabel);
+        frame.add(new JLabel("Classes Second Semester"));
         frame.add(classesSecondSem);
 
-        frame.add(studentAverage);
+        frame.add(new JLabel("Your Average"));
         frame.add(average);
 
-        frame.add(anticipatedAverageLabel);
+        frame.add(new JLabel("Anticipated Average"));
         frame.add(anticipatedAverage);
 
         frame.add(new JLabel("Activities"));
@@ -112,10 +117,13 @@ public class Survey extends JFrame implements ActionListener {
         frame.add(dramaClub);
 
         frame.add(new JLabel("Other Activites"));
-        frame.add(new TextField());
+        frame.add(otherActivities);
 
-        frame.add(new JLabel("BusGang"));
-        frame.add(new JComboBox<>(options));
+        frame.add(new JLabel("Activities Selected: "));
+        frame.add(activitiesSelected);
+
+        frame.add(new JLabel("Do you take the bus"));
+        frame.add(busOptions);
 
         frame.add(new JLabel("Do you like School"));
         frame.add(schoolRating);
@@ -123,7 +131,9 @@ public class Survey extends JFrame implements ActionListener {
         frame.add(new JLabel("Do you like GDHS"));
         frame.add(GDHSRating);
 
-        changeFont(frame, new Font("Arial", Font.PLAIN, 30));
+        frame.add(save);
+
+        changeFont(frame, new Font("Arial", Font.PLAIN, 12));
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
@@ -132,10 +142,44 @@ public class Survey extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String cmd = e.getActionCommand();
-        if (cmd.equals("grade")){
-            System.out.println(gradesBox.getSelectedItem());
+        if (e.getSource().equals(basketball)) {
+            activityCount = basketball.isSelected() ? activityCount+1 : activityCount-1;
+        } else if (e.getSource().equals(football)){
+            activityCount = football.isSelected() ? activityCount+1 : activityCount-1;
+        } else if (e.getSource().equals(baseball)){
+            activityCount = baseball.isSelected() ? activityCount+1 : activityCount-1;
+        } else if (e.getSource().equals(robotics)){
+            activityCount = robotics.isSelected() ? activityCount+1 : activityCount-1;
+        } else if (e.getSource().equals(dramaClub)){
+            activityCount = dramaClub.isSelected() ? activityCount+1 : activityCount-1;
+        } else if (e.getSource().equals(save)){
+            System.out.println("booga");
+            try{
+                PrintWriter printWriter = new PrintWriter("SurveyResults");
+                printWriter.println("Grade: " + gradesBox.getSelectedItem());
+                printWriter.println("Gender: " + gendersBox.getSelectedItem());
+                printWriter.println("Age: " + age.getValue());
+                printWriter.println("# of classes sem1: " + classesFirstSem.getValue());
+                printWriter.println("# of classes sem2: " + secondSemModel.getValue());
+                printWriter.println("Average: " + average.getValue());
+                printWriter.println("Anticipated average: " + anticipatedAverage.getValue());
+                printWriter.println("basketball: " + basketball.isSelected());
+                printWriter.println("football: " + football.isSelected());
+                printWriter.println("baseball: " + baseball.isSelected());
+                printWriter.println("robotics: " + robotics.isSelected());
+                printWriter.println("drama club: " + dramaClub.isSelected());
+                printWriter.println("unlisted activities: " + otherActivities.getText());
+                printWriter.println("bus: "  + busOptions.getSelectedItem());
+                printWriter.println("school rating: " + schoolRating.getValue());
+                printWriter.println("GDHS rating: " + GDHSRating.getValue());
+                printWriter.close();
+                System.out.println("ooga");
+            } catch (FileNotFoundException exception){
+                exception.printStackTrace();
+            }
         }
+        activitiesSelected.setText(activityCount + "");
+        frame.repaint();
     }
 
     public static void changeFont (Component component, Font font )
