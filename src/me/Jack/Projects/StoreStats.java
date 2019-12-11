@@ -79,27 +79,28 @@ public class StoreStats {
             if (line == null) {
                 dataRead = true;
             } else {
-                data = line.split(",");
-                System.out.println(line);
-                for (Row = 1; Row <= 10; Row++) {
-                    if (data[2].equals(productList[Row][0])) break;
+                if(!line.equals("")) {
+                    data = line.split(",");
+                    System.out.println(line);
+                    for (Row = 1; Row <= 10; Row++) {
+                        if (data[2].equals(productList[Row][0])) break;
+                    }
+
+                    for (Cell = 0; Cell < storeList.length - 1; Cell++) {
+                        if (data[0].equals(storeList[Cell][0])) break;
+                    }
+
+                    Col = Integer.parseInt(data[1]);
+                    Col = (Col / 100) % 100;
+                    if ((Col < 1) | (Col > 12)) Col = 13;
+
+                    dSalesAmt = Double.parseDouble(data[3]);
+
+                    dTableOfData[Cell][Row][Col] += dSalesAmt;
+                    dTableOfData[Cell][0][0] += dSalesAmt;
+                    dTableOfData[Cell][Row][0] += dSalesAmt;
+                    dTableOfData[Cell][0][Col] += dSalesAmt;
                 }
-
-                for (Cell = 0; Cell < storeList.length-1; Cell++){
-                    if(data[0].equals(storeList[Cell][0])) break;
-                }
-
-                Col = Integer.parseInt(data[1]);
-                Col = (Col / 100) % 100;
-                if ((Col < 1) | (Col > 12)) Col = 13;
-
-                dSalesAmt = Double.parseDouble(data[3]);
-
-                dTableOfData[Cell][Row][Col] += dSalesAmt;
-                dTableOfData[Cell][0][0] += dSalesAmt;
-                dTableOfData[Cell][Row][0] += dSalesAmt;
-                dTableOfData[Cell][0][Col] += dSalesAmt;
-
             }
         } while (!dataRead);
         NumberFormat nf = new DecimalFormat("##,###,###.00");

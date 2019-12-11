@@ -17,7 +17,16 @@ public class Project {
         PrintACheque pac = new PrintACheque();
         StoreStats ss = new StoreStats();
         CalendarDates cd = new CalendarDates();
-        cd.run();
+        Frame1 f1 = new Frame1();
+        FramePlay framePlay = new FramePlay();
+        FirstSwing firstSwing = new FirstSwing();
+        Survey survey = new Survey();
+
+        survey.run();
+        //firstSwing.run();
+        //framePlay.run();
+        //f1.run();
+        //cd.run();
         //ss.run();
         //pac.run();
         //ae.run();
