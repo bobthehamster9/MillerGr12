@@ -153,7 +153,6 @@ public class Survey extends JFrame implements ActionListener {
         } else if (e.getSource().equals(dramaClub)){
             activityCount = dramaClub.isSelected() ? activityCount+1 : activityCount-1;
         } else if (e.getSource().equals(save)){
-            System.out.println("booga");
             try{
                 PrintWriter printWriter = new PrintWriter("SurveyResults");
                 printWriter.println("Grade: " + gradesBox.getSelectedItem());
@@ -173,7 +172,6 @@ public class Survey extends JFrame implements ActionListener {
                 printWriter.println("school rating: " + schoolRating.getValue());
                 printWriter.println("GDHS rating: " + GDHSRating.getValue());
                 printWriter.close();
-                System.out.println("ooga");
             } catch (FileNotFoundException exception){
                 exception.printStackTrace();
             }

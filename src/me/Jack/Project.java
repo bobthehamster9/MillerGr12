@@ -21,8 +21,10 @@ public class Project {
         FramePlay framePlay = new FramePlay();
         FirstSwing firstSwing = new FirstSwing();
         Survey survey = new Survey();
+        TenIntegers tenIntegers = new TenIntegers();
 
-        survey.run();
+        tenIntegers.run();
+        //survey.run();
         //firstSwing.run();
         //framePlay.run();
         //f1.run();
