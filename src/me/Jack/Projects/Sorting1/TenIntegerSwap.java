@@ -1,6 +1,6 @@
-package me.Jack.Projects;
+package me.Jack.Projects.Sorting1;
 
-public class TenIntegerSwap1 {
+public class TenIntegerSwap {
 
     public void run(){
         int[] iArray;
@@ -29,10 +29,6 @@ public class TenIntegerSwap1 {
             iArray[i+1] = filler;
             System.out.print(iArray[i] + " " + iArray[i+1] + " ");
         }
-    }
-
-    public void sortArray(){
-
     }
 
 }

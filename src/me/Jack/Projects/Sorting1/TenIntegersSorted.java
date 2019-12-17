@@ -1,10 +1,10 @@
-package me.Jack.Projects;
+package me.Jack.Projects.Sorting1;
 
-public class TenIntegerSwap {
+public class TenIntegersSorted {
 
+    int[] iArray = new int[11];
+    int[] Sorted = new int[11];
     public void run(){
-        int[] iArray;
-        iArray = new int[11];
         iArray[1] = 45;
         iArray[2] = 22;
         iArray[3] = 2;
@@ -23,11 +23,8 @@ public class TenIntegerSwap {
 
         System.out.println();
 
-        for (int i = 1; i < iArray.length-1; i+=2) {
-            int filler = iArray[i];
-            iArray[i] = iArray[i+1];
-            iArray[i+1] = filler;
-            System.out.print(iArray[i] + " " + iArray[i+1] + " ");
+        for (int i = 1; i < iArray.length-1; i++) {
+            Sorted[i] = iArray[i];
         }
     }
 
