@@ -1,11 +1,23 @@
-//package me.Jack.Projects;
-//
-//public class PromptForNumbersAndSort {
-//
-//    int input;
-//
-//    while(input !=0){
-//
-//    }
-//
-//}
+package me.Jack.Projects;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class PromptForNumbersAndSort {
+
+    double input;
+    Scanner scanner  = new Scanner(System.in);
+    ArrayList<Double> num = new ArrayList<>();
+
+    public void run(){
+        do {
+            input = scanner.nextDouble();
+            if(input != 0)
+            num.add(input);
+            Collections.sort(num);
+        } while(input != 0);
+        System.out.println(num);
+    }
+
+}

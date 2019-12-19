@@ -8,8 +8,8 @@ import java.io.IOException;
 public class Project {
 
     public static void main(String[] args) throws IOException {
-        Sorting2 sorting2  = new Sorting2();
-        sorting2.run();
+        PromptForNumbersAndSort promptForNumbersAndSort = new PromptForNumbersAndSort();
+        promptForNumbersAndSort.run();
     }
 
 }
