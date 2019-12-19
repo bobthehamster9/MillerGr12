@@ -8,8 +8,7 @@ import java.io.IOException;
 public class Project {
 
     public static void main(String[] args) throws IOException {
-        Assignment03 assignment03 = new Assignment03();
-        assignment03.run();
+
     }
 
 }

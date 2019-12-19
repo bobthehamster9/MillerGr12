@@ -1,4 +1,4 @@
-package me.Jack.Projects;
+package me.Jack.Projects.Arrays;
 
 import java.util.Arrays;
 import java.util.List;

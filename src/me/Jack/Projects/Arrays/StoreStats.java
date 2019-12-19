@@ -1,4 +1,4 @@
-package me.Jack.Projects;
+package me.Jack.Projects.Arrays;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

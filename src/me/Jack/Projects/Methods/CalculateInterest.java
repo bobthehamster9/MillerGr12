@@ -1,4 +1,4 @@
-package me.Jack.Projects;
+package me.Jack.Projects.Methods;
 
 import me.Jack.Methods;
 import java.io.*;
