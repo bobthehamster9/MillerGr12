@@ -1,4 +1,4 @@
-package me.Jack.Projects;
+package me.Jack.Projects.Swing;
 
 import javax.swing.*;
 import java.awt.*;

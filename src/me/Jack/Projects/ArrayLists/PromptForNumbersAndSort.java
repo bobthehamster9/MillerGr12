@@ -1,4 +1,4 @@
-package me.Jack.Projects;
+package me.Jack.Projects.ArrayLists;
 
 import java.util.ArrayList;
 import java.util.Collections;
