@@ -29,6 +29,7 @@ public class Verification {
 
     int upcOdd, upcEven, upcResult;
     ArrayList<Integer> sinNum = new ArrayList<>();
+    ArrayList<Integer> ccNum = new ArrayList<>();
     boolean switch12 = true;
 
     public Verification() {
@@ -89,6 +90,35 @@ public class Verification {
         verifyCCButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String cc = ccField.getText();
+                for (int i = cc.length() - 1; i > -1; i--) {
+                    int num = Integer.parseInt(cc.charAt(i) + "");
+                    if (switch12) {
+                        ccNum.add(num);
+                        switch12 = false;
+                    } else if (!switch12) {
+                        if (num * 2 >= 10) {
+                            int numDoubled = num * 2;
+                            int sum;
+                            for (sum = 0; numDoubled > 0; sum += numDoubled % 10,
+                                    numDoubled /= 10)
+                                ;
+                            ccNum.add(sum);
+                        } else {
+                            ccNum.add(num * 2);
+                        }
+                        switch12 = true;
+                    }
+                }
+
+                int total = 0;
+                for (int i = 0; i < ccNum.size(); i++) {
+                    total += ccNum.get(i);
+                }
+                if (total % 10 == 0)
+                    System.out.println("Valid CC");
+                else
+                    System.out.println("Invalid CC");
             }
         });
     }
@@ -179,4 +209,5 @@ public class Verification {
     public JComponent $$$getRootComponent$$$() {
         return MyPanel;
     }
+
 }
