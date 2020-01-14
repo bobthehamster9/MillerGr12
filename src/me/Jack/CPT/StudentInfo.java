@@ -83,6 +83,7 @@ public class StudentInfo {
     Data data = new Data();
 
     public void setEditable(boolean editable) {
+        Color color = new Color(208, 96, 94);
         firstNameField.setEditable(editable);
         lastNameField.setEditable(editable);
         addressField.setEditable(editable);
@@ -360,14 +361,6 @@ public class StudentInfo {
         studentNumField.setForeground(new Color(-1));
         studentNumField.setSelectionEnd(0);
         panel.add(studentNumField, new GridConstraints(3, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        studentList = new JList();
-        studentList.setBackground(new Color(-3121058));
-        studentList.setEnabled(true);
-        Font studentListFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, studentList.getFont());
-        if (studentListFont != null) studentList.setFont(studentListFont);
-        studentList.setForeground(new Color(-1));
-        studentList.setSelectionBackground(new Color(-26292));
-        panel.add(studentList, new GridConstraints(2, 8, 10, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         SEARCHButton = new JButton();
         SEARCHButton.setBackground(new Color(-26292));
         Font SEARCHButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, SEARCHButton.getFont());
@@ -577,12 +570,13 @@ public class StudentInfo {
         panel.add(gradeBox, new GridConstraints(5, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(91, 25), null, 0, false));
         provBox = new JComboBox();
         provBox.setBackground(new Color(-3121058));
+        provBox.setEditable(false);
         provBox.setEnabled(true);
         provBox.setFocusable(false);
         Font provBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, provBox.getFont());
         if (provBoxFont != null) provBox.setFont(provBoxFont);
         provBox.setForeground(new Color(-263173));
-        provBox.setRequestFocusEnabled(false);
+        provBox.setRequestFocusEnabled(true);
         panel.add(provBox, new GridConstraints(2, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         genderBox = new JComboBox();
         genderBox.setBackground(new Color(-3121058));
@@ -665,6 +659,16 @@ public class StudentInfo {
         monthBox.setForeground(new Color(-1));
         monthBox.setRequestFocusEnabled(false);
         panel.add(monthBox, new GridConstraints(4, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(60, 25), new Dimension(50, 25), new Dimension(60, 25), 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        panel.add(scrollPane1, new GridConstraints(2, 8, 10, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        studentList = new JList();
+        studentList.setBackground(new Color(-3121058));
+        studentList.setEnabled(true);
+        Font studentListFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, studentList.getFont());
+        if (studentListFont != null) studentList.setFont(studentListFont);
+        studentList.setForeground(new Color(-1));
+        studentList.setSelectionBackground(new Color(-26292));
+        scrollPane1.setViewportView(studentList);
     }
 
     /**

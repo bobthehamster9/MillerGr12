@@ -254,20 +254,6 @@
           <selectionEnd value="0"/>
         </properties>
       </component>
-      <component id="baac8" class="javax.swing.JList" binding="studentList">
-        <constraints>
-          <grid row="2" column="8" row-span="10" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-3121058"/>
-          <enabled value="true"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <selectionBackground color="-26292"/>
-        </properties>
-      </component>
       <component id="df450" class="javax.swing.JButton" binding="SEARCHButton" default-binding="true">
         <constraints>
           <grid row="0" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -631,11 +617,12 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <editable value="false"/>
           <enabled value="true"/>
           <focusable value="false"/>
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-263173"/>
-          <requestFocusEnabled value="false"/>
+          <requestFocusEnabled value="true"/>
         </properties>
       </component>
       <component id="9fa86" class="javax.swing.JComboBox" binding="genderBox">
@@ -784,6 +771,25 @@
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
+      <scrollpane id="68d41">
+        <constraints>
+          <grid row="2" column="8" row-span="10" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="baac8" class="javax.swing.JList" binding="studentList">
+            <constraints/>
+            <properties>
+              <background color="-3121058"/>
+              <enabled value="true"/>
+              <font name="Microsoft YaHei UI" style="1"/>
+              <foreground color="-1"/>
+              <selectionBackground color="-26292"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>
