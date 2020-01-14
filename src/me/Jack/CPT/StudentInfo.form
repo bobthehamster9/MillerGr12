@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="me.Jack.CPT.StudentInfo">
-  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="12" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="12" column-count="11" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1071" height="423"/>
+      <xy x="20" y="20" width="1253" height="475"/>
     </constraints>
     <properties>
       <background color="-6795155"/>
@@ -35,7 +35,7 @@
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
           <inheritsPopupMenu value="false"/>
-          <margin top="2" left="5" bottom="2" right="5"/>
+          <margin top="2" left="6" bottom="2" right="6"/>
           <text value=""/>
         </properties>
       </component>
@@ -59,6 +59,7 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="7e69f" class="javax.swing.JLabel" binding="streetAddressLabel">
@@ -93,6 +94,7 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
         </properties>
       </component>
       <component id="e1c22" class="javax.swing.JTextField" binding="cityField">
@@ -104,6 +106,7 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="16432" class="javax.swing.JLabel" binding="provinceLabel">
@@ -138,6 +141,7 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="9c815" class="javax.swing.JLabel" binding="studentNumberLabel">
@@ -189,7 +193,9 @@
       </component>
       <component id="473a7" class="javax.swing.JLabel" binding="gradeLabel">
         <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="36" height="25"/>
+          </grid>
         </constraints>
         <properties>
           <background color="-1"/>
@@ -200,7 +206,9 @@
       </component>
       <component id="730a3" class="javax.swing.JLabel" binding="ageLabel">
         <constraints>
-          <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="21" height="25"/>
+          </grid>
         </constraints>
         <properties>
           <background color="-1"/>
@@ -218,17 +226,19 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="bc139" class="javax.swing.JTextField" binding="ageField">
         <constraints>
           <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
+            <preferred-size width="150" height="25"/>
           </grid>
         </constraints>
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="2438a" class="javax.swing.JTextField" binding="studentNumField">
@@ -240,48 +250,39 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <selectionEnd value="0"/>
         </properties>
       </component>
-      <component id="baac8" class="javax.swing.JList" binding="list1" default-binding="true">
+      <component id="baac8" class="javax.swing.JList" binding="studentList">
         <constraints>
-          <grid row="1" column="8" row-span="11" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="8" row-span="10" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-26292"/>
-          <selectionBackground color="-26292"/>
-        </properties>
-      </component>
-      <component id="f6ccf" class="javax.swing.JTextField" binding="surnameOrSNTextField" default-binding="true">
-        <constraints>
-          <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
+          <background color="-3121058"/>
           <enabled value="true"/>
-          <focusable value="false"/>
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
-          <text value="Surname or SN"/>
+          <selectionBackground color="-26292"/>
         </properties>
       </component>
       <component id="df450" class="javax.swing.JButton" binding="SEARCHButton" default-binding="true">
         <constraints>
-          <grid row="0" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-26292"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
           <requestFocusEnabled value="false"/>
           <text value="SEARCH"/>
         </properties>
       </component>
       <component id="ee343" class="javax.swing.JRadioButton" binding="ALPHABETICALLYRadioButton" default-binding="true">
         <constraints>
-          <grid row="1" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-6795155"/>
@@ -294,7 +295,7 @@
       </component>
       <component id="e918d" class="javax.swing.JRadioButton" binding="AGERadioButton" default-binding="true">
         <constraints>
-          <grid row="3" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-6795155"/>
@@ -309,13 +310,21 @@
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-26292"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
       </component>
       <component id="d7c30" class="javax.swing.JComboBox" binding="courseBox6">
         <constraints>
           <grid row="7" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-26292"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
       </component>
       <component id="9af27" class="javax.swing.JTextField" binding="course6Field">
         <constraints>
@@ -326,25 +335,12 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
-        </properties>
-      </component>
-      <component id="14cf4" class="javax.swing.JComboBox" binding="courseListBox">
-        <constraints>
-          <grid row="7" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-26292"/>
-          <focusable value="false"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <model>
-            <item value="Course"/>
-          </model>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="ed21b" class="javax.swing.JButton" binding="ADDButton" default-binding="true">
         <constraints>
-          <grid row="10" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-26292"/>
@@ -363,7 +359,7 @@
         <properties>
           <background color="-3121058"/>
           <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-3121058"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="428d6" class="javax.swing.JTextField" binding="course8Field">
@@ -374,7 +370,8 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
-          <foreground color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="927d2" class="javax.swing.JButton" binding="SAVEButton" default-binding="true">
@@ -406,7 +403,11 @@
         <constraints>
           <grid row="9" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-26292"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
       </component>
       <component id="615f1" class="javax.swing.JButton" binding="EDITButton" default-binding="true">
         <constraints>
@@ -428,19 +429,29 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
         </properties>
       </component>
       <component id="6ee6e" class="javax.swing.JComboBox" binding="courseBox3">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-26292"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
       </component>
       <component id="594b3" class="javax.swing.JComboBox" binding="courseBox4">
         <constraints>
           <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-26292"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
       </component>
       <component id="d5696" class="javax.swing.JTextField" binding="course4Field">
         <constraints>
@@ -450,6 +461,8 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
         </properties>
       </component>
       <component id="e427b" class="javax.swing.JTextField" binding="avgField">
@@ -460,6 +473,8 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
         </properties>
       </component>
       <component id="eb53e" class="javax.swing.JLabel" binding="avgLabel">
@@ -473,20 +488,6 @@
           <text value="AVERAGE"/>
         </properties>
       </component>
-      <component id="56517" class="javax.swing.JComboBox" binding="gradeListBox">
-        <constraints>
-          <grid row="6" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-26292"/>
-          <focusable value="false"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <model>
-            <item value="Grade"/>
-          </model>
-        </properties>
-      </component>
       <component id="19387" class="javax.swing.JTextField" binding="course5Field">
         <constraints>
           <grid row="6" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -495,6 +496,8 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
         </properties>
       </component>
       <component id="849f7" class="javax.swing.JTextField" binding="course1Field">
@@ -505,6 +508,8 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
         </properties>
       </component>
       <component id="4f50b" class="javax.swing.JComboBox" binding="courseBox5">
@@ -512,14 +517,21 @@
           <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-26292"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
         </properties>
       </component>
       <component id="b25e9" class="javax.swing.JComboBox" binding="courseBox1">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-26292"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
       </component>
       <component id="b8a43" class="javax.swing.JTextField" binding="course2Field">
         <constraints>
@@ -529,6 +541,8 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
         </properties>
       </component>
       <component id="ffb29" class="javax.swing.JButton" binding="PREVButton" default-binding="true">
@@ -547,10 +561,11 @@
       </component>
       <component id="218ba" class="javax.swing.JButton" binding="SELECTButton" default-binding="true">
         <constraints>
-          <grid row="11" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="11" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-26292"/>
+          <focusable value="false"/>
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
           <text value="SELECT"/>
@@ -558,7 +573,7 @@
       </component>
       <component id="2d819" class="javax.swing.JRadioButton" binding="GRADESRadioButton" default-binding="true">
         <constraints>
-          <grid row="2" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-6795155"/>
@@ -573,7 +588,10 @@
           <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-26292"/>
           <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
         </properties>
       </component>
       <component id="1ea7" class="javax.swing.JComboBox" binding="yearBox">
@@ -586,10 +604,154 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
-          <foreground color="-3121058"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
         </properties>
       </component>
-      <component id="439de" class="javax.swing.JComboBox" binding="dayBox">
+      <component id="566e1" class="javax.swing.JComboBox" binding="gradeBox">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="91" height="25"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-3121058"/>
+          <enabled value="true"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
+      </component>
+      <component id="28f29" class="javax.swing.JComboBox" binding="provBox">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-3121058"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-263173"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
+      </component>
+      <component id="9fa86" class="javax.swing.JComboBox" binding="genderBox">
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-3121058"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1837313"/>
+          <requestFocusEnabled value="false"/>
+        </properties>
+      </component>
+      <hspacer id="db7b9">
+        <constraints>
+          <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="50" height="4"/>
+            <preferred-size width="4" height="4"/>
+            <maximum-size width="50" height="4"/>
+          </grid>
+        </constraints>
+      </hspacer>
+      <component id="b2da3" class="javax.swing.JTextField" binding="searchField">
+        <constraints>
+          <grid row="1" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-3121058"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+        </properties>
+      </component>
+      <component id="1bcf6" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <text value="SURNAME OR STUDENT #"/>
+        </properties>
+      </component>
+      <component id="56517" class="javax.swing.JComboBox" binding="gradeListBox">
+        <constraints>
+          <grid row="4" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-26292"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <model>
+            <item value="Grade"/>
+          </model>
+        </properties>
+      </component>
+      <component id="14cf4" class="javax.swing.JComboBox" binding="courseListBox">
+        <constraints>
+          <grid row="5" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="98" height="25"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-26292"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <model>
+            <item value="Course"/>
+          </model>
+        </properties>
+      </component>
+      <component id="4a178" class="javax.swing.JTextField" binding="minField">
+        <constraints>
+          <grid row="9" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-3121058"/>
+          <foreground color="-1"/>
+        </properties>
+      </component>
+      <component id="f3368" class="javax.swing.JTextField" binding="maxField">
+        <constraints>
+          <grid row="8" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-3121058"/>
+          <foreground color="-1"/>
+        </properties>
+      </component>
+      <component id="14bbc" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="8" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <text value="MAX GRADE"/>
+        </properties>
+      </component>
+      <component id="7ef26" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="9" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <text value="MIN GRADE"/>
+        </properties>
+      </component>
+      <component id="270c9" class="javax.swing.JComboBox" binding="dayBox">
         <constraints>
           <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="50" height="25"/>
@@ -599,10 +761,13 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
-          <foreground color="-3121058"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
         </properties>
       </component>
-      <component id="daa28" class="javax.swing.JComboBox" binding="monthBox">
+      <component id="2f986" class="javax.swing.JComboBox" binding="monthBox">
         <constraints>
           <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <minimum-size width="50" height="25"/>
@@ -612,35 +777,10 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
-          <foreground color="-3121058"/>
-        </properties>
-      </component>
-      <component id="566e1" class="javax.swing.JComboBox" binding="comboBox14" default-binding="true">
-        <constraints>
-          <grid row="5" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-3121058"/>
-          <enabled value="true"/>
-          <foreground color="-3121058"/>
-        </properties>
-      </component>
-      <component id="28f29" class="javax.swing.JComboBox" binding="provBox">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-3121058"/>
-          <foreground color="-3121058"/>
-        </properties>
-      </component>
-      <component id="9fa86" class="javax.swing.JComboBox" binding="genderBox">
-        <constraints>
-          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-3121058"/>
-          <foreground color="-3121058"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
         </properties>
       </component>
     </children>
