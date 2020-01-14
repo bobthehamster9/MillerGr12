@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +13,13 @@ public class Data {
 
     String line;
 
-    //
+    String[] provinces = {"ALBERTA", "BRITISH COLUMBIA", "MANITOBA", "NEW BRUNSWICK", "NEWFOUNDLAND AND LABRADOR", "NORTHWEST TERRITORY", "NOVA SCOTIA", "NUNAVUT", "ONTARIO", "PRINCE EDWARD ISLAND", "QUEBEC", "SASKATCHEWAN", "YUKON"};
+    String[] grades = {"GRADE", "9", "10", "11", "12"};
+    String[] year = {"YEAR", "2000", "2001", "2002", "2003", "2004", "2005", "2006"};
+    String[] month = {"MM", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
+    String[] day = {"DD", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+    String[] genders = {"MALE", "FEMALE"};
+
     ArrayList<String> keys = new ArrayList<>();
     HashMap<String, String> firstName = new HashMap<>();
     HashMap<String, String> address = new HashMap<>();
@@ -51,6 +59,11 @@ public class Data {
             grade.put(key, Integer.parseInt(info[12]));
             keys.add(key);
         }
+    }
+
+    public int calculateAge(LocalDate birthdate){
+        Period p = Period.between(birthdate, LocalDate.now());
+        return p.getYears();
     }
 
 }

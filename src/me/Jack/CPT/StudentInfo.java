@@ -9,17 +9,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.io.*;
+import java.time.LocalDate;
 
 public class StudentInfo {
 
     int count;
-
-    String[] provinces = {"Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"};
-    String[] grades = {"GRADE", "9", "10", "11", "12"};
-    String[] year = {"YEAR", "2000", "2001", "2002", "2003", "2004", "2005", "2006"};
-    String[] month = {"MM", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
-    String[] day = {"DD", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
-    String[] genders = {"MALE", "FEMALE"};
 
     private JTextField firstNameField;
     private JTextField lastNameField;
@@ -93,15 +87,15 @@ public class StudentInfo {
         lastNameField.setEditable(editable);
         addressField.setEditable(editable);
         cityField.setEditable(editable);
-        provBox.setEditable(editable);
+        provBox.setEnabled(editable);
         postalField.setEditable(editable);
         studentNumField.setEditable(editable);
         phoneField.setEditable(editable);
-        yearBox.setEditable(editable);
-        dayBox.setEditable(editable);
-        monthBox.setEditable(editable);
-        genderBox.setEditable(editable);
-        gradeBox.setEditable(editable);
+        yearBox.setEnabled(editable);
+        dayBox.setEnabled(editable);
+        monthBox.setEnabled(editable);
+        genderBox.setEnabled(editable);
+        gradeBox.setEnabled(editable);
         ageField.setEditable(editable);
     }
 
@@ -124,6 +118,10 @@ public class StudentInfo {
                     dayBox.setSelectedIndex(data.DOBday.get(selected_row));
                     monthBox.setSelectedIndex(data.DOBmonth.get(selected_row));
                     genderBox.setSelectedIndex(data.gender.get(selected_row));
+                    gradeBox.setSelectedIndex(data.grade.get(selected_row));
+                    LocalDate birthdate = LocalDate.of(data.DOByear.get(selected_row) + 1999, data.DOBmonth.get(selected_row), data.DOBday.get(selected_row));
+                    ageField.setText(data.calculateAge(birthdate) + "");
+                    setEditable(false);
                 }
             }
         });
@@ -160,13 +158,13 @@ public class StudentInfo {
     }
 
     public void init() throws IOException {
-        provBox.setModel(new DefaultComboBoxModel<String>(provinces));
-        gradeListBox.setModel(new DefaultComboBoxModel<String>(grades));
-        genderBox.setModel(new DefaultComboBoxModel<String>(genders));
-        gradeBox.setModel(new DefaultComboBoxModel<String>(grades));
-        yearBox.setModel(new DefaultComboBoxModel<String>(year));
-        monthBox.setModel(new DefaultComboBoxModel<String>(month));
-        dayBox.setModel(new DefaultComboBoxModel<String>(day));
+        provBox.setModel(new DefaultComboBoxModel<String>(data.provinces));
+        gradeListBox.setModel(new DefaultComboBoxModel<String>(data.grades));
+        genderBox.setModel(new DefaultComboBoxModel<String>(data.genders));
+        gradeBox.setModel(new DefaultComboBoxModel<String>(data.grades));
+        yearBox.setModel(new DefaultComboBoxModel<String>(data.year));
+        monthBox.setModel(new DefaultComboBoxModel<String>(data.month));
+        dayBox.setModel(new DefaultComboBoxModel<String>(data.day));
 
 
         setEditable(false);
@@ -579,6 +577,7 @@ public class StudentInfo {
         panel.add(gradeBox, new GridConstraints(5, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(91, 25), null, 0, false));
         provBox = new JComboBox();
         provBox.setBackground(new Color(-3121058));
+        provBox.setEnabled(true);
         provBox.setFocusable(false);
         Font provBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, provBox.getFont());
         if (provBoxFont != null) provBox.setFont(provBoxFont);
@@ -657,7 +656,7 @@ public class StudentInfo {
         if (dayBoxFont != null) dayBox.setFont(dayBoxFont);
         dayBox.setForeground(new Color(-1));
         dayBox.setRequestFocusEnabled(false);
-        panel.add(dayBox, new GridConstraints(4, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 25), new Dimension(50, 25), new Dimension(50, 25), 0, false));
+        panel.add(dayBox, new GridConstraints(4, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(60, 25), new Dimension(60, 25), new Dimension(60, 25), 0, false));
         monthBox = new JComboBox();
         monthBox.setBackground(new Color(-3121058));
         monthBox.setFocusable(false);
@@ -665,7 +664,7 @@ public class StudentInfo {
         if (monthBoxFont != null) monthBox.setFont(monthBoxFont);
         monthBox.setForeground(new Color(-1));
         monthBox.setRequestFocusEnabled(false);
-        panel.add(monthBox, new GridConstraints(4, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 25), new Dimension(50, 25), new Dimension(50, 25), 0, false));
+        panel.add(monthBox, new GridConstraints(4, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(60, 25), new Dimension(50, 25), new Dimension(60, 25), 0, false));
     }
 
     /**

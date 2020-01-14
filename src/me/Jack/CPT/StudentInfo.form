@@ -631,6 +631,7 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <enabled value="true"/>
           <focusable value="false"/>
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-263173"/>
@@ -754,9 +755,9 @@
       <component id="270c9" class="javax.swing.JComboBox" binding="dayBox">
         <constraints>
           <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="50" height="25"/>
-            <preferred-size width="50" height="25"/>
-            <maximum-size width="50" height="25"/>
+            <minimum-size width="60" height="25"/>
+            <preferred-size width="60" height="25"/>
+            <maximum-size width="60" height="25"/>
           </grid>
         </constraints>
         <properties>
@@ -770,9 +771,9 @@
       <component id="2f986" class="javax.swing.JComboBox" binding="monthBox">
         <constraints>
           <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="50" height="25"/>
+            <minimum-size width="60" height="25"/>
             <preferred-size width="50" height="25"/>
-            <maximum-size width="50" height="25"/>
+            <maximum-size width="60" height="25"/>
           </grid>
         </constraints>
         <properties>
