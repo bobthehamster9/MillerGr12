@@ -35,7 +35,7 @@
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
           <inheritsPopupMenu value="false"/>
-          <margin top="2" left="6" bottom="2" right="6"/>
+          <margin top="2" left="5" bottom="2" right="5"/>
           <text value=""/>
         </properties>
       </component>
@@ -324,18 +324,6 @@
           <foreground color="-1837313"/>
         </properties>
       </component>
-      <component id="ed21b" class="javax.swing.JButton" binding="ADDButton" default-binding="true">
-        <constraints>
-          <grid row="10" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-26292"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <requestFocusEnabled value="false"/>
-          <text value="ADD"/>
-        </properties>
-      </component>
       <component id="992a1" class="javax.swing.JTextField" binding="course7Field">
         <constraints>
           <grid row="8" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -543,18 +531,6 @@
           <opaque value="true"/>
           <requestFocusEnabled value="false"/>
           <text value="PREV"/>
-        </properties>
-      </component>
-      <component id="218ba" class="javax.swing.JButton" binding="SELECTButton" default-binding="true">
-        <constraints>
-          <grid row="11" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-26292"/>
-          <focusable value="false"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <text value="SELECT"/>
         </properties>
       </component>
       <component id="2d819" class="javax.swing.JRadioButton" binding="GRADESRadioButton" default-binding="true">
@@ -790,6 +766,18 @@
           </component>
         </children>
       </scrollpane>
+      <component id="ed21b" class="javax.swing.JButton" binding="ADDButton" default-binding="true">
+        <constraints>
+          <grid row="11" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+          <text value="ADD"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

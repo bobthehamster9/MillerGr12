@@ -1,9 +1,6 @@
 package me.Jack.CPT;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -64,6 +61,13 @@ public class Data {
     public int calculateAge(LocalDate birthdate){
         Period p = Period.between(birthdate, LocalDate.now());
         return p.getYears();
+    }
+
+    public void writeToFile(String path, String information) throws IOException{
+        BufferedWriter printWriter = new BufferedWriter(new FileWriter("src\\me\\Jack\\CPT\\Files\\" + path, true));
+        printWriter.newLine();
+        printWriter.write(information);
+        printWriter.close();
     }
 
 }

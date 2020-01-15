@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.time.LocalDate;
 
@@ -66,7 +68,6 @@ public class StudentInfo {
     private JTextField course1Field;
     private JComboBox courseBox5;
     private JComboBox courseBox1;
-    private JButton SELECTButton;
     private JRadioButton GRADESRadioButton;
     private JComboBox yearBox;
     private JComboBox gradeBox;
@@ -77,13 +78,10 @@ public class StudentInfo {
     private JComboBox dayBox;
     private JComboBox monthBox;
 
-    String line;
-
     DefaultListModel listModel = new DefaultListModel();
     Data data = new Data();
 
     public void setEditable(boolean editable) {
-        Color color = new Color(208, 96, 94);
         firstNameField.setEditable(editable);
         lastNameField.setEditable(editable);
         addressField.setEditable(editable);
@@ -100,7 +98,34 @@ public class StudentInfo {
         ageField.setEditable(editable);
     }
 
-    public StudentInfo() {
+    public void clearFields() {
+        firstNameField.setText("");
+        lastNameField.setText("");
+        addressField.setText("");
+        cityField.setText("");
+        provBox.setSelectedIndex(0);
+        postalField.setText("");
+        studentNumField.setText("");
+        phoneField.setText("");
+        yearBox.setSelectedIndex(0);
+        dayBox.setSelectedIndex(0);
+        monthBox.setSelectedIndex(0);
+        genderBox.setSelectedIndex(0);
+        gradeBox.setSelectedIndex(0);
+        ageField.setText("");
+    }
+
+    public boolean checkFields() {
+        if (firstNameField.getText() != "" && lastNameField.getText() != "" && addressField.getText() != "" &&
+                cityField.getText() != "" && postalField.getText() != null && studentNumField.getText() != null
+                && phoneField.getText().length() == 10) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public StudentInfo() throws IOException {
         studentList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -124,6 +149,41 @@ public class StudentInfo {
                     ageField.setText(data.calculateAge(birthdate) + "");
                     setEditable(false);
                 }
+            }
+        });
+
+        SAVEButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkFields()) {
+                    System.out.println("Changes have been saved");
+                    String key = lastNameField.getText().toUpperCase() + ", " + studentNumField.getText();
+                    if (!data.keys.contains(key)) {
+                        try {
+                            //studentNum, firstName, lastName, address, city, province, postal code, phone#, year, day, month, gender, grade, course1, avg, course2, avg, course3, avg....
+                            String student = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase() + "," + addressField.getText().toUpperCase() + "," + cityField.getText().toUpperCase() + "," +
+                                    provBox.getSelectedIndex() + "," + postalField.getText() + "," + phoneField.getText() + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," +
+                                    genderBox.getSelectedIndex() + "," + gradeBox.getSelectedIndex();
+                            data.writeToFile("StudentData.txt", student);
+                            initStudentList();
+                            studentList.repaint();
+                            LocalDate birthdate = LocalDate.of(yearBox.getSelectedIndex() + 1999, monthBox.getSelectedIndex(), dayBox.getSelectedIndex());
+                            ageField.setText(data.calculateAge(birthdate) + "");
+                            data.initData();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
+
+        ADDButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearFields();
+                setEditable(true);
             }
         });
     }
@@ -156,7 +216,8 @@ public class StudentInfo {
     public void initStudentList() throws IOException {
         data.initData();
         for (int i = 0; i < data.keys.size(); i++) {
-            listModel.addElement(data.keys.get(i));
+            if (!listModel.contains(data.keys.get(i)))
+                listModel.addElement(data.keys.get(i));
         }
     }
 
@@ -168,7 +229,6 @@ public class StudentInfo {
         yearBox.setModel(new DefaultComboBoxModel<String>(data.year));
         monthBox.setModel(new DefaultComboBoxModel<String>(data.month));
         dayBox.setModel(new DefaultComboBoxModel<String>(data.day));
-
 
         setEditable(false);
 
@@ -235,7 +295,7 @@ public class StudentInfo {
         if (firstNameFieldFont != null) firstNameField.setFont(firstNameFieldFont);
         firstNameField.setForeground(new Color(-1));
         firstNameField.setInheritsPopupMenu(false);
-        firstNameField.setMargin(new Insets(2, 6, 2, 6));
+        firstNameField.setMargin(new Insets(2, 5, 2, 5));
         firstNameField.setText("");
         panel.add(firstNameField, new GridConstraints(0, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         lastNameLabel = new JLabel();
@@ -405,14 +465,6 @@ public class StudentInfo {
         if (course6FieldFont != null) course6Field.setFont(course6FieldFont);
         course6Field.setForeground(new Color(-1837313));
         panel.add(course6Field, new GridConstraints(7, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        ADDButton = new JButton();
-        ADDButton.setBackground(new Color(-26292));
-        Font ADDButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, ADDButton.getFont());
-        if (ADDButtonFont != null) ADDButton.setFont(ADDButtonFont);
-        ADDButton.setForeground(new Color(-1));
-        ADDButton.setRequestFocusEnabled(false);
-        ADDButton.setText("ADD");
-        panel.add(ADDButton, new GridConstraints(10, 9, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         course7Field = new JTextField();
         course7Field.setBackground(new Color(-3121058));
         Font course7FieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, course7Field.getFont());
@@ -530,14 +582,6 @@ public class StudentInfo {
         PREVButton.setRequestFocusEnabled(false);
         PREVButton.setText("PREV");
         panel.add(PREVButton, new GridConstraints(11, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        SELECTButton = new JButton();
-        SELECTButton.setBackground(new Color(-26292));
-        SELECTButton.setFocusable(false);
-        Font SELECTButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, SELECTButton.getFont());
-        if (SELECTButtonFont != null) SELECTButton.setFont(SELECTButtonFont);
-        SELECTButton.setForeground(new Color(-1));
-        SELECTButton.setText("SELECT");
-        panel.add(SELECTButton, new GridConstraints(11, 9, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         GRADESRadioButton = new JRadioButton();
         GRADESRadioButton.setBackground(new Color(-6795155));
         Font GRADESRadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, GRADESRadioButton.getFont());
@@ -671,6 +715,14 @@ public class StudentInfo {
         studentList.setForeground(new Color(-1));
         studentList.setSelectionBackground(new Color(-26292));
         scrollPane1.setViewportView(studentList);
+        ADDButton = new JButton();
+        ADDButton.setBackground(new Color(-26292));
+        Font ADDButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, ADDButton.getFont());
+        if (ADDButtonFont != null) ADDButton.setFont(ADDButtonFont);
+        ADDButton.setForeground(new Color(-1));
+        ADDButton.setRequestFocusEnabled(false);
+        ADDButton.setText("ADD");
+        panel.add(ADDButton, new GridConstraints(11, 9, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -698,5 +750,4 @@ public class StudentInfo {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
-
 }
