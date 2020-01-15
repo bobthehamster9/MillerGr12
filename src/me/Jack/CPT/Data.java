@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Data {
 
@@ -33,12 +34,14 @@ public class Data {
 
     HashMap<String, String> courseData = new HashMap<>();
 
+    ArrayList<String> tmpFile = new ArrayList<>();
+
     public void initData() throws IOException {
        readFromFile("StudentData.txt");
     }
 
     public void readFromFile(String path) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(new File("src\\me\\Jack\\CPT\\Files\\" + path)));
+            BufferedReader br = new BufferedReader(new FileReader(new File("src\\me\\Jack\\CPT\\Files\\" + path)));
         while ((line = br.readLine()) != null) {
             String[] info = line.split(",");
             String key = info[2] + ", " + info[0];
@@ -55,7 +58,9 @@ public class Data {
             gender.put(key, Integer.parseInt(info[11]));
             grade.put(key, Integer.parseInt(info[12]));
             keys.add(key);
+            tmpFile.add(line);
         }
+        br.close();
     }
 
     public int calculateAge(LocalDate birthdate){
@@ -63,10 +68,25 @@ public class Data {
         return p.getYears();
     }
 
-    public void writeToFile(String path, String information) throws IOException{
-        BufferedWriter printWriter = new BufferedWriter(new FileWriter("src\\me\\Jack\\CPT\\Files\\" + path, true));
-        printWriter.newLine();
-        printWriter.write(information);
+    public void writeToFile(String path, String information, String key) throws IOException{
+        PrintWriter printWriter = new PrintWriter("src\\me\\Jack\\CPT\\Files\\StudentData.txt");
+        System.out.println("hello???");
+        if(!keys.contains(key)){
+            tmpFile.add(information);
+        } else {
+            for (int i = 0; i < tmpFile.size(); i++) {
+                key = key.replaceAll(" ", "");
+                String [] reorganize = key.split(",");
+                if (tmpFile.get(i).contains(reorganize[1])){
+                    tmpFile.set(i, information);
+                }
+            }
+        }
+
+        for (int i = 0; i <tmpFile.size() ; i++) {
+            System.out.println(tmpFile.get(i));
+            printWriter.println(tmpFile.get(i));
+        }
         printWriter.close();
     }
 

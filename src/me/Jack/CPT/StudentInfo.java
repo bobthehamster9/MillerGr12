@@ -158,13 +158,12 @@ public class StudentInfo {
                 if (checkFields()) {
                     System.out.println("Changes have been saved");
                     String key = lastNameField.getText().toUpperCase() + ", " + studentNumField.getText();
-                    if (!data.keys.contains(key)) {
                         try {
                             //studentNum, firstName, lastName, address, city, province, postal code, phone#, year, day, month, gender, grade, course1, avg, course2, avg, course3, avg....
                             String student = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase() + "," + addressField.getText().toUpperCase() + "," + cityField.getText().toUpperCase() + "," +
                                     provBox.getSelectedIndex() + "," + postalField.getText() + "," + phoneField.getText() + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," +
                                     genderBox.getSelectedIndex() + "," + gradeBox.getSelectedIndex();
-                            data.writeToFile("StudentData.txt", student);
+                            data.writeToFile("StudentData.txt", student,  lastNameField.getText().toUpperCase() + ", " + studentNumField.getText());
                             initStudentList();
                             studentList.repaint();
                             LocalDate birthdate = LocalDate.of(yearBox.getSelectedIndex() + 1999, monthBox.getSelectedIndex(), dayBox.getSelectedIndex());
@@ -173,7 +172,6 @@ public class StudentInfo {
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
-                    }
                 }
             }
         });
@@ -183,6 +181,12 @@ public class StudentInfo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 clearFields();
+                setEditable(true);
+            }
+        });
+        EDITButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 setEditable(true);
             }
         });
@@ -750,4 +754,5 @@ public class StudentInfo {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }
