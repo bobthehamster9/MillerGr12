@@ -151,6 +151,8 @@ public class StudentInfo {
         maxField.setBorder(null);
     }
 
+    //public void
+
     public void initStudentList() throws IOException {
         data.initData();
         for (int i = 0; i < data.keys.size(); i++) {
