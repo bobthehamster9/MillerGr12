@@ -209,9 +209,6 @@ public class StudentInfo {
                     grade = gradeBox.getSelectedIndex();
                  else
                     grade = -1;
-
-                System.out.println(grade);
-
             }
         });
     }

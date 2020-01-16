@@ -33,10 +33,7 @@ public class Data {
     HashMap<String, String> courses = new HashMap<>();
 
     //Course code, course desc
-    HashMap<String, String> grade9Courses = new HashMap<>();
-    HashMap<String, String> grade10Courses = new HashMap<>();
-    HashMap<String, String> grade11Courses = new HashMap<>();
-    HashMap<String, String> grade12Courses = new HashMap<>();
+    String [][] courseTable = new String[5][99999];
 
     ArrayList<String> tmpFile = new ArrayList<>();
 
@@ -89,31 +86,14 @@ public class Data {
         printWriter.close();
     }
 
-    public void readCourseData() throws IOException  {
+    public void readCourseData() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(new File(path + "CourseData.txt")));
-        while ((line = br.readLine()) != null){
+        while ((line = br.readLine()) != null) {
             String[] classes = line.split(",");
             for (int i = 0; i < classes.length; i++) {
-                switch (classes[i].charAt(3)){
-                    case '1':
-                        grade9Courses.put(classes[i], "");
-                        break;
-                    case '2':
-                        grade10Courses.put(classes[i], "");
-                        break;
-                    case '3':
-                        grade11Courses.put(classes[i], "");
-                        break;
-                    case '4':
-                        grade12Courses.put(classes[i], "");
-                        break;
-                }
+
             }
         }
-        System.out.println(grade9Courses);
-        System.out.println(grade10Courses);
-        System.out.println(grade11Courses);
-        System.out.println(grade12Courses);
     }
 
     public void writeCourseData(){
