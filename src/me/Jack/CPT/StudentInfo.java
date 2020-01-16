@@ -90,6 +90,16 @@ public class StudentInfo {
     private JComboBox monthBox;
 
     DefaultListModel listModel = new DefaultListModel();
+
+    DefaultComboBoxModel course1 = new DefaultComboBoxModel();
+    DefaultComboBoxModel course2 = new DefaultComboBoxModel();
+    DefaultComboBoxModel course3 = new DefaultComboBoxModel();
+    DefaultComboBoxModel course4 = new DefaultComboBoxModel();
+    DefaultComboBoxModel course5 = new DefaultComboBoxModel();
+    DefaultComboBoxModel course6 = new DefaultComboBoxModel();
+    DefaultComboBoxModel course7 = new DefaultComboBoxModel();
+    DefaultComboBoxModel course8 = new DefaultComboBoxModel();
+
     Data data = new Data();
 
     int grade;
@@ -128,6 +138,24 @@ public class StudentInfo {
         ageField.setText("");
     }
 
+    public void setCourseBox() {
+        switch (gradeBox.getSelectedIndex()) {
+            case 1:
+                course1.addAll(data.course9Keys);
+                break;
+            case 2:
+                course1.addAll(data.course10Keys);
+                break;
+            case 3:
+                course1.addAll(data.course11Keys);
+                break;
+            case 4:
+                course1.addAll(data.course12Keys);
+                break;
+        }
+        courseBox1.setModel(course1);
+    }
+
     public boolean checkFields() {
         if (firstNameField.getText() != "" && lastNameField.getText() != "" && addressField.getText() != "" &&
                 cityField.getText() != "" && postalField.getText() != null && studentNumField.getText() != null
@@ -160,6 +188,7 @@ public class StudentInfo {
                     gradeBox.setSelectedIndex(data.grade.get(selected_row));
                     LocalDate birthdate = LocalDate.of(data.DOByear.get(selected_row) + 1999, data.DOBmonth.get(selected_row), data.DOBday.get(selected_row));
                     ageField.setText(data.calculateAge(birthdate) + "");
+                    setCourseBox();
                     setEditable(false);
                 }
             }
@@ -207,8 +236,10 @@ public class StudentInfo {
             public void actionPerformed(ActionEvent e) {
                 if (gradeBox.getSelectedIndex() != 0)
                     grade = gradeBox.getSelectedIndex();
-                 else
+                else
                     grade = -1;
+
+                setCourseBox();
             }
         });
     }
@@ -242,6 +273,7 @@ public class StudentInfo {
             if (!listModel.contains(data.keys.get(i)))
                 listModel.addElement(data.keys.get(i));
         }
+        studentList.setModel(listModel);
     }
 
     public void init() throws IOException {
@@ -256,8 +288,6 @@ public class StudentInfo {
         setEditable(false);
 
         initStudentList();
-
-        studentList.setModel(listModel);
     }
 
     public void run() throws IOException {
@@ -773,4 +803,5 @@ public class StudentInfo {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }

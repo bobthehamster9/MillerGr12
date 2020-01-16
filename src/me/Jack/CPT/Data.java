@@ -33,7 +33,11 @@ public class Data {
     HashMap<String, String> courses = new HashMap<>();
 
     //Course code, course desc
-    String [][] courseTable = new String[5][99999];
+    ArrayList<String> course9Keys = new ArrayList<>();
+    ArrayList<String> course10Keys = new ArrayList<>();
+    ArrayList<String> course11Keys = new ArrayList<>();
+    ArrayList<String> course12Keys = new ArrayList<>();
+    HashMap<String, String> courseTable = new HashMap<>();
 
     ArrayList<String> tmpFile = new ArrayList<>();
 
@@ -59,6 +63,7 @@ public class Data {
             DOBmonth.put(key, Integer.parseInt(info[10]));
             gender.put(key, Integer.parseInt(info[11]));
             grade.put(key, Integer.parseInt(info[12]));
+            courses.put(key, info[13]);
             keys.add(key);
             tmpFile.add(line);
         }
@@ -90,8 +95,22 @@ public class Data {
         BufferedReader br = new BufferedReader(new FileReader(new File(path + "CourseData.txt")));
         while ((line = br.readLine()) != null) {
             String[] classes = line.split(",");
-            for (int i = 0; i < classes.length; i++) {
-
+            for (int i = 0 ; i < classes.length; i++) {
+                switch (classes[i].charAt(3)){
+                    case '1':
+                        course9Keys.add(classes[i]);
+                        break;
+                    case '2':
+                        course10Keys.add(classes[i]);
+                        break;
+                    case '3':
+                        course11Keys.add(classes[i]);
+                        break;
+                    case '4':
+                        course12Keys.add(classes[i]);
+                        break;
+                }
+                courseTable.put(classes[i], "");
             }
         }
     }
