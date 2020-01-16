@@ -15,7 +15,18 @@ import java.time.LocalDate;
 
 public class StudentInfo {
 
-    int count;
+    /*
+    TODO
+    Courses
+        -course selection
+        -saving/adding/editing course data
+        -adding courses, validating
+        -(if extra time) course descs
+    Search
+        -search by surname or student #
+        -sort by alphabet, alphabet w/ grades, marks and age
+        -filter by marks
+     */
 
     private JTextField firstNameField;
     private JTextField lastNameField;
@@ -81,6 +92,8 @@ public class StudentInfo {
     DefaultListModel listModel = new DefaultListModel();
     Data data = new Data();
 
+    int grade;
+
     public void setEditable(boolean editable) {
         firstNameField.setEditable(editable);
         lastNameField.setEditable(editable);
@@ -88,7 +101,7 @@ public class StudentInfo {
         cityField.setEditable(editable);
         provBox.setEnabled(editable);
         postalField.setEditable(editable);
-        studentNumField.setEditable(editable);
+        studentNumField.setEditable(false);
         phoneField.setEditable(editable);
         yearBox.setEnabled(editable);
         dayBox.setEnabled(editable);
@@ -125,7 +138,7 @@ public class StudentInfo {
         }
     }
 
-    public StudentInfo() throws IOException {
+    public StudentInfo() {
         studentList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -157,21 +170,20 @@ public class StudentInfo {
             public void actionPerformed(ActionEvent e) {
                 if (checkFields()) {
                     System.out.println("Changes have been saved");
-                    String key = lastNameField.getText().toUpperCase() + ", " + studentNumField.getText();
-                        try {
-                            //studentNum, firstName, lastName, address, city, province, postal code, phone#, year, day, month, gender, grade, course1, avg, course2, avg, course3, avg....
-                            String student = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase() + "," + addressField.getText().toUpperCase() + "," + cityField.getText().toUpperCase() + "," +
-                                    provBox.getSelectedIndex() + "," + postalField.getText() + "," + phoneField.getText() + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," +
-                                    genderBox.getSelectedIndex() + "," + gradeBox.getSelectedIndex();
-                            data.writeToFile("StudentData.txt", student,  lastNameField.getText().toUpperCase() + ", " + studentNumField.getText());
-                            initStudentList();
-                            studentList.repaint();
-                            LocalDate birthdate = LocalDate.of(yearBox.getSelectedIndex() + 1999, monthBox.getSelectedIndex(), dayBox.getSelectedIndex());
-                            ageField.setText(data.calculateAge(birthdate) + "");
-                            data.initData();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
+                    try {
+                        //studentNum, firstName, lastName, address, city, province, postal code, phone#, year, day, month, gender, grade, course1, avg, course2, avg, course3, avg....
+                        String student = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase() + "," + addressField.getText().toUpperCase() + "," + cityField.getText().toUpperCase() + "," +
+                                provBox.getSelectedIndex() + "," + postalField.getText() + "," + phoneField.getText() + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," +
+                                genderBox.getSelectedIndex() + "," + gradeBox.getSelectedIndex();
+                        data.writeToFile(student, lastNameField.getText().toUpperCase() + ", " + studentNumField.getText());
+                        initStudentList();
+                        studentList.repaint();
+                        LocalDate birthdate = LocalDate.of(yearBox.getSelectedIndex() + 1999, monthBox.getSelectedIndex(), dayBox.getSelectedIndex());
+                        ageField.setText(data.calculateAge(birthdate) + "");
+                        data.initData();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         });
@@ -188,6 +200,18 @@ public class StudentInfo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setEditable(true);
+            }
+        });
+        gradeBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (gradeBox.getSelectedIndex() != 0)
+                    grade = gradeBox.getSelectedIndex();
+                 else
+                    grade = -1;
+
+                System.out.println(grade);
+
             }
         });
     }
@@ -215,8 +239,6 @@ public class StudentInfo {
         maxField.setBorder(null);
     }
 
-    //public void
-
     public void initStudentList() throws IOException {
         data.initData();
         for (int i = 0; i < data.keys.size(); i++) {
@@ -226,13 +248,13 @@ public class StudentInfo {
     }
 
     public void init() throws IOException {
-        provBox.setModel(new DefaultComboBoxModel<String>(data.provinces));
-        gradeListBox.setModel(new DefaultComboBoxModel<String>(data.grades));
-        genderBox.setModel(new DefaultComboBoxModel<String>(data.genders));
-        gradeBox.setModel(new DefaultComboBoxModel<String>(data.grades));
-        yearBox.setModel(new DefaultComboBoxModel<String>(data.year));
-        monthBox.setModel(new DefaultComboBoxModel<String>(data.month));
-        dayBox.setModel(new DefaultComboBoxModel<String>(data.day));
+        provBox.setModel(new DefaultComboBoxModel<>(data.provinces));
+        gradeListBox.setModel(new DefaultComboBoxModel<>(data.grades));
+        genderBox.setModel(new DefaultComboBoxModel<>(data.genders));
+        gradeBox.setModel(new DefaultComboBoxModel<>(data.grades));
+        yearBox.setModel(new DefaultComboBoxModel<>(data.year));
+        monthBox.setModel(new DefaultComboBoxModel<>(data.month));
+        dayBox.setModel(new DefaultComboBoxModel<>(data.day));
 
         setEditable(false);
 
@@ -754,5 +776,4 @@ public class StudentInfo {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
-
 }

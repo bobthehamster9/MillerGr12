@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Data {
 
     String line;
+    String path = "src\\me\\Jack\\CPT\\Files\\";
 
     String[] provinces = {"ALBERTA", "BRITISH COLUMBIA", "MANITOBA", "NEW BRUNSWICK", "NEWFOUNDLAND AND LABRADOR", "NORTHWEST TERRITORY", "NOVA SCOTIA", "NUNAVUT", "ONTARIO", "PRINCE EDWARD ISLAND", "QUEBEC", "SASKATCHEWAN", "YUKON"};
     String[] grades = {"GRADE", "9", "10", "11", "12"};
@@ -32,16 +32,21 @@ public class Data {
     HashMap<String, Integer> grade = new HashMap<>();
     HashMap<String, String> courses = new HashMap<>();
 
-    HashMap<String, String> courseData = new HashMap<>();
+    //Course code, course desc
+    HashMap<String, String> grade9Courses = new HashMap<>();
+    HashMap<String, String> grade10Courses = new HashMap<>();
+    HashMap<String, String> grade11Courses = new HashMap<>();
+    HashMap<String, String> grade12Courses = new HashMap<>();
 
     ArrayList<String> tmpFile = new ArrayList<>();
 
     public void initData() throws IOException {
-       readFromFile("StudentData.txt");
+       readStudentData();
+       readCourseData();
     }
 
-    public void readFromFile(String path) throws IOException {
-            BufferedReader br = new BufferedReader(new FileReader(new File("src\\me\\Jack\\CPT\\Files\\" + path)));
+    public void readStudentData() throws IOException {
+            BufferedReader br = new BufferedReader(new FileReader(new File(path + "StudentData.txt")));
         while ((line = br.readLine()) != null) {
             String[] info = line.split(",");
             String key = info[2] + ", " + info[0];
@@ -63,14 +68,8 @@ public class Data {
         br.close();
     }
 
-    public int calculateAge(LocalDate birthdate){
-        Period p = Period.between(birthdate, LocalDate.now());
-        return p.getYears();
-    }
-
-    public void writeToFile(String path, String information, String key) throws IOException{
-        PrintWriter printWriter = new PrintWriter("src\\me\\Jack\\CPT\\Files\\StudentData.txt");
-        System.out.println("hello???");
+    public void writeToFile(String information, String key) throws IOException{
+        PrintWriter printWriter = new PrintWriter(path + "StudentData.txt");
         if(!keys.contains(key)){
             tmpFile.add(information);
         } else {
@@ -88,6 +87,42 @@ public class Data {
             printWriter.println(tmpFile.get(i));
         }
         printWriter.close();
+    }
+
+    public void readCourseData() throws IOException  {
+        BufferedReader br = new BufferedReader(new FileReader(new File(path + "CourseData.txt")));
+        while ((line = br.readLine()) != null){
+            String[] classes = line.split(",");
+            for (int i = 0; i < classes.length; i++) {
+                switch (classes[i].charAt(3)){
+                    case '1':
+                        grade9Courses.put(classes[i], "");
+                        break;
+                    case '2':
+                        grade10Courses.put(classes[i], "");
+                        break;
+                    case '3':
+                        grade11Courses.put(classes[i], "");
+                        break;
+                    case '4':
+                        grade12Courses.put(classes[i], "");
+                        break;
+                }
+            }
+        }
+        System.out.println(grade9Courses);
+        System.out.println(grade10Courses);
+        System.out.println(grade11Courses);
+        System.out.println(grade12Courses);
+    }
+
+    public void writeCourseData(){
+
+    }
+
+    public int calculateAge(LocalDate birthdate){
+        Period p = Period.between(birthdate, LocalDate.now());
+        return p.getYears();
     }
 
 }
