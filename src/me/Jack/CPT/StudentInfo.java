@@ -200,6 +200,17 @@ public class StudentInfo {
         courseBox8.setModel(course8);
     }
 
+    public void setCourseBoxesToIndex(int course, int course2, int course3, int course4, int course5, int course6, int course7, int course8) {
+        courseBox1.setSelectedIndex(course);
+        courseBox2.setSelectedIndex(course2);
+        courseBox3.setSelectedIndex(course3);
+        courseBox4.setSelectedIndex(course4);
+        courseBox5.setSelectedIndex(course5);
+        courseBox6.setSelectedIndex(course6);
+        courseBox7.setSelectedIndex(course7);
+        courseBox8.setSelectedIndex(course8);
+    }
+
     public boolean checkFields() {
         if (firstNameField.getText() != "" && lastNameField.getText() != "" && addressField.getText() != "" &&
                 cityField.getText() != "" && postalField.getText() != null && studentNumField.getText() != null
@@ -233,6 +244,12 @@ public class StudentInfo {
                     LocalDate birthdate = LocalDate.of(data.DOByear.get(selected_row) + 1999, data.DOBmonth.get(selected_row), data.DOBday.get(selected_row));
                     ageField.setText(data.calculateAge(birthdate) + "");
                     setCourseBox();
+                    String[] courses = data.courses.get(selected_row).split("/");
+                    int[] coursesInt = new int[16];
+                    for (int i = 0; i < courses.length; i++) {
+                        coursesInt[i] = Integer.parseInt(courses[i]);
+                    }
+                    setCourseBoxesToIndex(coursesInt[0], coursesInt[2], coursesInt[4], coursesInt[6], coursesInt[8], coursesInt[10], coursesInt[12], coursesInt[14]);
                     setEditable(false);
                 }
             }

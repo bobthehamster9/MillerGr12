@@ -93,6 +93,10 @@ public class Data {
 
     public void readCourseData() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(new File(path + "CourseData.txt")));
+        course9Keys.add("COURSE");
+        course10Keys.add("COURSE");
+        course11Keys.add("COURSE");
+        course12Keys.add("COURSE");
         while ((line = br.readLine()) != null) {
             String[] classes = line.split(",");
             for (int i = 0 ; i < classes.length; i++) {
