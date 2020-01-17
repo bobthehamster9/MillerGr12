@@ -139,21 +139,65 @@ public class StudentInfo {
     }
 
     public void setCourseBox() {
+        course1.removeAllElements();
+        course2.removeAllElements();
+        course3.removeAllElements();
+        course4.removeAllElements();
+        course5.removeAllElements();
+        course6.removeAllElements();
+        course7.removeAllElements();
+        course8.removeAllElements();
         switch (gradeBox.getSelectedIndex()) {
             case 1:
                 course1.addAll(data.course9Keys);
+                course2.addAll(data.course9Keys);
+                course3.addAll(data.course9Keys);
+                course4.addAll(data.course9Keys);
+                course5.addAll(data.course9Keys);
+                course6.addAll(data.course9Keys);
+                course7.addAll(data.course9Keys);
+                course8.addAll(data.course9Keys);
                 break;
             case 2:
                 course1.addAll(data.course10Keys);
+                course2.addAll(data.course10Keys);
+                course3.addAll(data.course10Keys);
+                course4.addAll(data.course10Keys);
+                course5.addAll(data.course10Keys);
+                course6.addAll(data.course10Keys);
+                course7.addAll(data.course10Keys);
+                course8.addAll(data.course10Keys);
                 break;
             case 3:
                 course1.addAll(data.course11Keys);
+                course2.addAll(data.course11Keys);
+                course3.addAll(data.course11Keys);
+                course4.addAll(data.course11Keys);
+                course5.addAll(data.course11Keys);
+                course6.addAll(data.course11Keys);
+                course7.addAll(data.course11Keys);
+                course8.addAll(data.course11Keys);
                 break;
             case 4:
+                System.out.println(data.course12Keys);
                 course1.addAll(data.course12Keys);
+                course2.addAll(data.course12Keys);
+                course3.addAll(data.course12Keys);
+                course4.addAll(data.course12Keys);
+                course5.addAll(data.course12Keys);
+                course6.addAll(data.course12Keys);
+                course7.addAll(data.course12Keys);
+                course8.addAll(data.course12Keys);
                 break;
         }
         courseBox1.setModel(course1);
+        courseBox2.setModel(course2);
+        courseBox3.setModel(course3);
+        courseBox4.setModel(course4);
+        courseBox5.setModel(course5);
+        courseBox6.setModel(course6);
+        courseBox7.setModel(course7);
+        courseBox8.setModel(course8);
     }
 
     public boolean checkFields() {
