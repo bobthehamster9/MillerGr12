@@ -66,6 +66,7 @@ public class Data {
             courses.put(key, info[13]);
             keys.add(key);
             tmpFile.add(line);
+            System.out.println(tmpFile);
         }
         br.close();
     }
@@ -74,21 +75,24 @@ public class Data {
         PrintWriter printWriter = new PrintWriter(path + "StudentData.txt");
         if(!keys.contains(key)){
             tmpFile.add(information);
-        } else {
-            for (int i = 0; i < tmpFile.size(); i++) {
-                key = key.replaceAll(" ", "");
-                String [] reorganize = key.split(",");
-                if (tmpFile.get(i).contains(reorganize[1])){
-                    tmpFile.set(i, information);
-                }
+        }
+
+        for (int i = 0; i < tmpFile.size(); i++) {
+            key = key.replaceAll(" ", "");
+            String [] reorganize = key.split(",");
+            if (tmpFile.get(i).contains(reorganize[1])){
+                tmpFile.set(i, information);
+                System.out.println(tmpFile);
             }
         }
 
-        for (int i = 0; i <tmpFile.size() ; i++) {
-            System.out.println(tmpFile.get(i));
+        for (int i = 0; i < tmpFile.size(); i++) {
             printWriter.println(tmpFile.get(i));
         }
+
         printWriter.close();
+        //System.out.println(tmpFile);
+        tmpFile.clear();
     }
 
     public void readCourseData() throws IOException {

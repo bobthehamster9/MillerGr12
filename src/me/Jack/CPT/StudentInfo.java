@@ -21,7 +21,7 @@ public class StudentInfo {
         -course selection
         -saving/adding/editing course data
         -adding courses, validating
-        -(if extra time) course descs
+        -(if extra time) course descs (probably not)
     Search
         -search by surname or student #
         -sort by alphabet, alphabet w/ grades, marks and age
@@ -102,23 +102,43 @@ public class StudentInfo {
 
     Data data = new Data();
 
+    int[] coursesInt = new int[16];
     int grade;
 
     public void setEditable(boolean editable) {
+        //Perma disabled
+        lastNameField.setEditable(false);
+        studentNumField.setEditable(false);
+        avgField.setEditable(false);
+        ageField.setEditable(false);
+
         firstNameField.setEditable(editable);
-        lastNameField.setEditable(editable);
         addressField.setEditable(editable);
         cityField.setEditable(editable);
         provBox.setEnabled(editable);
         postalField.setEditable(editable);
-        studentNumField.setEditable(false);
         phoneField.setEditable(editable);
         yearBox.setEnabled(editable);
         dayBox.setEnabled(editable);
         monthBox.setEnabled(editable);
         genderBox.setEnabled(editable);
         gradeBox.setEnabled(editable);
-        ageField.setEditable(editable);
+        courseBox1.setEnabled(editable);
+        course1Field.setEditable(editable);
+        courseBox2.setEnabled(editable);
+        course2Field.setEditable(editable);
+        courseBox3.setEnabled(editable);
+        course3Field.setEditable(editable);
+        courseBox4.setEnabled(editable);
+        course4Field.setEditable(editable);
+        courseBox5.setEnabled(editable);
+        course5Field.setEditable(editable);
+        courseBox6.setEnabled(editable);
+        course6Field.setEditable(editable);
+        courseBox7.setEnabled(editable);
+        course7Field.setEditable(editable);
+        courseBox8.setEnabled(editable);
+        course8Field.setEditable(editable);
     }
 
     public void clearFields() {
@@ -179,7 +199,6 @@ public class StudentInfo {
                 course8.addAll(data.course11Keys);
                 break;
             case 4:
-                System.out.println(data.course12Keys);
                 course1.addAll(data.course12Keys);
                 course2.addAll(data.course12Keys);
                 course3.addAll(data.course12Keys);
@@ -200,15 +219,23 @@ public class StudentInfo {
         courseBox8.setModel(course8);
     }
 
-    public void setCourseBoxesToIndex(int course, int course2, int course3, int course4, int course5, int course6, int course7, int course8) {
-        courseBox1.setSelectedIndex(course);
-        courseBox2.setSelectedIndex(course2);
-        courseBox3.setSelectedIndex(course3);
-        courseBox4.setSelectedIndex(course4);
-        courseBox5.setSelectedIndex(course5);
-        courseBox6.setSelectedIndex(course6);
-        courseBox7.setSelectedIndex(course7);
-        courseBox8.setSelectedIndex(course8);
+    public void setCourseBoxesToIndex() {
+        courseBox1.setSelectedIndex(coursesInt[0]);
+        course1Field.setText(coursesInt[1] + "");
+        courseBox2.setSelectedIndex(coursesInt[2]);
+        course2Field.setText(coursesInt[3] + "");
+        courseBox3.setSelectedIndex(coursesInt[4]);
+        course3Field.setText(coursesInt[5] + "");
+        courseBox4.setSelectedIndex(coursesInt[6]);
+        course4Field.setText(coursesInt[7] + "");
+        courseBox5.setSelectedIndex(coursesInt[8]);
+        course5Field.setText(coursesInt[9] + "");
+        courseBox6.setSelectedIndex(coursesInt[10]);
+        course6Field.setText(coursesInt[11] + "");
+        courseBox7.setSelectedIndex(coursesInt[12]);
+        course7Field.setText(coursesInt[13] + "");
+        courseBox8.setSelectedIndex(coursesInt[14]);
+        course8Field.setText(coursesInt[15] + "");
     }
 
     public boolean checkFields() {
@@ -221,7 +248,7 @@ public class StudentInfo {
         }
     }
 
-    public StudentInfo() {
+    public StudentInfo() throws IOException {
         studentList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -245,11 +272,11 @@ public class StudentInfo {
                     ageField.setText(data.calculateAge(birthdate) + "");
                     setCourseBox();
                     String[] courses = data.courses.get(selected_row).split("/");
-                    int[] coursesInt = new int[16];
                     for (int i = 0; i < courses.length; i++) {
                         coursesInt[i] = Integer.parseInt(courses[i]);
                     }
-                    setCourseBoxesToIndex(coursesInt[0], coursesInt[2], coursesInt[4], coursesInt[6], coursesInt[8], coursesInt[10], coursesInt[12], coursesInt[14]);
+                    setCourseBoxesToIndex();
+                    avgField.setText(calculateAverage() + "");
                     setEditable(false);
                 }
             }
@@ -261,16 +288,25 @@ public class StudentInfo {
                 if (checkFields()) {
                     System.out.println("Changes have been saved");
                     try {
-                        //studentNum, firstName, lastName, address, city, province, postal code, phone#, year, day, month, gender, grade, course1, avg, course2, avg, course3, avg....
-                        String student = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase() + "," + addressField.getText().toUpperCase() + "," + cityField.getText().toUpperCase() + "," +
-                                provBox.getSelectedIndex() + "," + postalField.getText() + "," + phoneField.getText() + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," +
-                                genderBox.getSelectedIndex() + "," + gradeBox.getSelectedIndex();
-                        data.writeToFile(student, lastNameField.getText().toUpperCase() + ", " + studentNumField.getText());
-                        initStudentList();
-                        studentList.repaint();
                         LocalDate birthdate = LocalDate.of(yearBox.getSelectedIndex() + 1999, monthBox.getSelectedIndex(), dayBox.getSelectedIndex());
                         ageField.setText(data.calculateAge(birthdate) + "");
-                        data.initData();
+                        String courses[] = {courseBox1.getSelectedIndex() + "", course1Field.getText(), courseBox2.getSelectedIndex() + "", course2Field.getText(), courseBox3.getSelectedIndex() + "", course3Field.getText(), courseBox4.getSelectedIndex() + "", course4Field.getText(),
+                                courseBox5.getSelectedIndex() + "", course5Field.getText(), courseBox6.getSelectedIndex() + "", course6Field.getText(), courseBox7.getSelectedIndex() + "", course7Field.getText(), courseBox8.getSelectedIndex() + "", course8Field.getText()};
+                        for (int i = 0; i < courses.length; i++) {
+                            coursesInt[i] = Integer.parseInt(courses[i]);
+                        }
+                        avgField.setText(calculateAverage() + "");
+                        //studentNum, firstName, lastName, address, city, province, postal code, phone#, year, day, month, gender, grade, course1, avg, course2, avg, course3, avg....
+                        String student = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase() + "," + addressField.getText().toUpperCase() + "," + cityField.getText().toUpperCase() + "," +
+                                provBox.getSelectedIndex() + "," + postalField.getText() + "," + phoneField.getText() + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," + genderBox.getSelectedIndex()
+                                + "," + gradeBox.getSelectedIndex() + "," + courseBox1.getSelectedIndex() + "/" + course1Field.getText() + "/" + courseBox2.getSelectedIndex() + "/" + course2Field.getText() + "/" + courseBox3.getSelectedIndex()
+                                + "/" + course3Field.getText() + "/" + courseBox4.getSelectedIndex() + "/" + course4Field.getText() + "/" + courseBox5.getSelectedIndex() + "/" + course5Field.getText() + "/" + courseBox6.getSelectedIndex()
+                                + "/" + course6Field.getText() + "/" + courseBox7.getSelectedIndex() + "/" + course7Field.getText() + "/" + courseBox8.getSelectedIndex() + "/" + course8Field.getText() + "," + avgField.getText() + "," + ageField.getText();
+                        data.writeToFile(student, lastNameField.getText().toUpperCase() + ", " + studentNumField.getText());
+                        System.out.println(data.tmpFile);
+                        initStudentList();
+                        studentList.repaint();
+                        setEditable(false);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -284,6 +320,10 @@ public class StudentInfo {
             public void actionPerformed(ActionEvent e) {
                 clearFields();
                 setEditable(true);
+                lastNameField.setEditable(true);
+                studentNumField.setEditable(true);
+                avgField.setEditable(true);
+                ageField.setEditable(true);
             }
         });
         EDITButton.addActionListener(new ActionListener() {
@@ -295,6 +335,7 @@ public class StudentInfo {
         gradeBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("check if run twice");
                 if (gradeBox.getSelectedIndex() != 0)
                     grade = gradeBox.getSelectedIndex();
                 else
@@ -351,6 +392,20 @@ public class StudentInfo {
         initStudentList();
     }
 
+    public int calculateAverage() {
+        int total = 0;
+        int numClasses = 0;
+        for (int i = 0; i < coursesInt.length; i += 2) {
+            if (coursesInt[i] != 0) {
+                numClasses++;
+                total += coursesInt[i + 1];
+            }
+        }
+        System.out.println(numClasses);
+        System.out.println(total);
+        return ((total + numClasses - 1) / numClasses);
+    }
+
     public void run() throws IOException {
         init();
         removeBorders();
@@ -368,6 +423,7 @@ public class StudentInfo {
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
@@ -864,5 +920,4 @@ public class StudentInfo {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
-
 }
