@@ -254,51 +254,17 @@
           <selectionEnd value="0"/>
         </properties>
       </component>
-      <component id="df450" class="javax.swing.JButton" binding="SEARCHButton" default-binding="true">
-        <constraints>
-          <grid row="0" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-26292"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <requestFocusEnabled value="false"/>
-          <text value="SEARCH"/>
-        </properties>
-      </component>
-      <component id="ee343" class="javax.swing.JRadioButton" binding="ALPHABETICALLYRadioButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-6795155"/>
-          <focusable value="false"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <requestFocusEnabled value="false"/>
-          <text value="ALPHABETICALLY"/>
-        </properties>
-      </component>
-      <component id="e918d" class="javax.swing.JRadioButton" binding="AGERadioButton" default-binding="true">
-        <constraints>
-          <grid row="3" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-6795155"/>
-          <focusable value="false"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <requestFocusEnabled value="false"/>
-          <text value="AGE"/>
-        </properties>
-      </component>
       <component id="159a7" class="javax.swing.JComboBox" binding="courseBox2">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -308,7 +274,11 @@
         </constraints>
         <properties>
           <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -379,7 +349,11 @@
         </constraints>
         <properties>
           <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -413,7 +387,11 @@
         </constraints>
         <properties>
           <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -423,7 +401,11 @@
         </constraints>
         <properties>
           <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -494,6 +476,9 @@
           <background color="-26292"/>
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -503,7 +488,11 @@
         </constraints>
         <properties>
           <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -533,18 +522,6 @@
           <text value="PREV"/>
         </properties>
       </component>
-      <component id="2d819" class="javax.swing.JRadioButton" binding="GRADESRadioButton" default-binding="true">
-        <constraints>
-          <grid row="2" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-6795155"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <requestFocusEnabled value="false"/>
-          <text value="GRADES"/>
-        </properties>
-      </component>
       <component id="5e90e" class="javax.swing.JComboBox" binding="courseBox7">
         <constraints>
           <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
@@ -553,6 +530,9 @@
           <background color="-26292"/>
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
+          <model>
+            <item value="COURSE"/>
+          </model>
           <requestFocusEnabled value="false"/>
         </properties>
       </component>
@@ -643,36 +623,6 @@
           <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
           <text value="SURNAME OR STUDENT #"/>
-        </properties>
-      </component>
-      <component id="56517" class="javax.swing.JComboBox" binding="gradeListBox">
-        <constraints>
-          <grid row="4" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <background color="-26292"/>
-          <focusable value="false"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <model>
-            <item value="Grade"/>
-          </model>
-        </properties>
-      </component>
-      <component id="14cf4" class="javax.swing.JComboBox" binding="courseListBox">
-        <constraints>
-          <grid row="5" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="98" height="25"/>
-          </grid>
-        </constraints>
-        <properties>
-          <background color="-26292"/>
-          <focusable value="false"/>
-          <font name="Microsoft YaHei UI" style="1"/>
-          <foreground color="-1"/>
-          <model>
-            <item value="Course"/>
-          </model>
         </properties>
       </component>
       <component id="4a178" class="javax.swing.JTextField" binding="minField">
@@ -776,6 +726,86 @@
           <foreground color="-1"/>
           <requestFocusEnabled value="false"/>
           <text value="ADD"/>
+        </properties>
+      </component>
+      <component id="14cf4" class="javax.swing.JComboBox" binding="courseListBox">
+        <constraints>
+          <grid row="6" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="98" height="25"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-26292"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <model>
+            <item value="Course"/>
+          </model>
+        </properties>
+      </component>
+      <component id="56517" class="javax.swing.JComboBox" binding="gradeListBox">
+        <constraints>
+          <grid row="5" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-26292"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <model>
+            <item value="Grade"/>
+          </model>
+        </properties>
+      </component>
+      <component id="e918d" class="javax.swing.JRadioButton" binding="AGERadioButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-6795155"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+          <text value="AGE"/>
+        </properties>
+      </component>
+      <component id="2d819" class="javax.swing.JRadioButton" binding="GRADESRadioButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-6795155"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+          <text value="GRADES"/>
+        </properties>
+      </component>
+      <component id="ee343" class="javax.swing.JRadioButton" binding="ALPHABETICALLYRadioButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-6795155"/>
+          <focusable value="false"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+          <text value="ALPHABETICALLY"/>
+        </properties>
+      </component>
+      <component id="df450" class="javax.swing.JButton" binding="SEARCHButton" default-binding="true">
+        <constraints>
+          <grid row="1" column="9" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-26292"/>
+          <font name="Microsoft YaHei UI" style="1"/>
+          <foreground color="-1"/>
+          <requestFocusEnabled value="false"/>
+          <text value="SEARCH"/>
         </properties>
       </component>
     </children>

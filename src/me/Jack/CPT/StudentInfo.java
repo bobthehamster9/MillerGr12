@@ -17,11 +17,6 @@ public class StudentInfo {
 
     /*
     TODO
-    Courses
-        -course selection
-        -saving/adding/editing course data
-        -adding courses, validating
-        -(if extra time) course descs (probably not)
     Search
         -search by surname or student #
         -sort by alphabet, alphabet w/ grades, marks and age
@@ -142,6 +137,8 @@ public class StudentInfo {
     }
 
     public void clearFields() {
+        grade = 1;
+        setCourseBox();
         firstNameField.setText("");
         lastNameField.setText("");
         addressField.setText("");
@@ -156,6 +153,14 @@ public class StudentInfo {
         genderBox.setSelectedIndex(0);
         gradeBox.setSelectedIndex(0);
         ageField.setText("");
+        course1Field.setText("0");
+        course2Field.setText("0");
+        course3Field.setText("0");
+        course4Field.setText("0");
+        course5Field.setText("0");
+        course6Field.setText("0");
+        course7Field.setText("0");
+        course8Field.setText("0");
     }
 
     public void setCourseBox() {
@@ -304,9 +309,11 @@ public class StudentInfo {
                                 + "/" + course6Field.getText() + "/" + courseBox7.getSelectedIndex() + "/" + course7Field.getText() + "/" + courseBox8.getSelectedIndex() + "/" + course8Field.getText() + "," + avgField.getText() + "," + ageField.getText();
                         data.writeToFile(student, lastNameField.getText().toUpperCase() + ", " + studentNumField.getText());
                         System.out.println(data.tmpFile);
+                        data.initData();
                         initStudentList();
                         studentList.repaint();
                         setEditable(false);
+                        System.out.println(data.keys);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -344,6 +351,20 @@ public class StudentInfo {
                 setCourseBox();
             }
         });
+        SEARCHButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String search = searchField.getText();
+                listModel.removeAllElements();
+                for (int i = 0; i < data.keys.size(); i++) {
+                    if (data.keys.get(i).contains(search.toUpperCase())) {
+                        listModel.addElement(data.keys.get(i));
+                        System.out.println(data.keys.get(i));
+                    }
+                }
+                studentList.repaint();
+            }
+        });
     }
 
     public void removeBorders() {
@@ -369,8 +390,7 @@ public class StudentInfo {
         maxField.setBorder(null);
     }
 
-    public void initStudentList() throws IOException {
-        data.initData();
+    public void initStudentList() {
         for (int i = 0; i < data.keys.size(); i++) {
             if (!listModel.contains(data.keys.get(i)))
                 listModel.addElement(data.keys.get(i));
@@ -389,7 +409,11 @@ public class StudentInfo {
 
         setEditable(false);
 
+        data.initData();
+
         initStudentList();
+
+        clearFields();
     }
 
     public int calculateAverage() {
@@ -401,9 +425,11 @@ public class StudentInfo {
                 total += coursesInt[i + 1];
             }
         }
-        System.out.println(numClasses);
-        System.out.println(total);
-        return ((total + numClasses - 1) / numClasses);
+
+        if (numClasses > 0)
+            return ((total + numClasses - 1) / numClasses);
+        else
+            return 0;
     }
 
     public void run() throws IOException {
@@ -593,40 +619,24 @@ public class StudentInfo {
         studentNumField.setForeground(new Color(-1));
         studentNumField.setSelectionEnd(0);
         panel.add(studentNumField, new GridConstraints(3, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        SEARCHButton = new JButton();
-        SEARCHButton.setBackground(new Color(-26292));
-        Font SEARCHButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, SEARCHButton.getFont());
-        if (SEARCHButtonFont != null) SEARCHButton.setFont(SEARCHButtonFont);
-        SEARCHButton.setForeground(new Color(-1));
-        SEARCHButton.setRequestFocusEnabled(false);
-        SEARCHButton.setText("SEARCH");
-        panel.add(SEARCHButton, new GridConstraints(0, 9, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        ALPHABETICALLYRadioButton = new JRadioButton();
-        ALPHABETICALLYRadioButton.setBackground(new Color(-6795155));
-        ALPHABETICALLYRadioButton.setFocusable(false);
-        Font ALPHABETICALLYRadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, ALPHABETICALLYRadioButton.getFont());
-        if (ALPHABETICALLYRadioButtonFont != null) ALPHABETICALLYRadioButton.setFont(ALPHABETICALLYRadioButtonFont);
-        ALPHABETICALLYRadioButton.setForeground(new Color(-1));
-        ALPHABETICALLYRadioButton.setRequestFocusEnabled(false);
-        ALPHABETICALLYRadioButton.setText("ALPHABETICALLY");
-        panel.add(ALPHABETICALLYRadioButton, new GridConstraints(1, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        AGERadioButton = new JRadioButton();
-        AGERadioButton.setBackground(new Color(-6795155));
-        AGERadioButton.setFocusable(false);
-        Font AGERadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, AGERadioButton.getFont());
-        if (AGERadioButtonFont != null) AGERadioButton.setFont(AGERadioButtonFont);
-        AGERadioButton.setForeground(new Color(-1));
-        AGERadioButton.setRequestFocusEnabled(false);
-        AGERadioButton.setText("AGE");
-        panel.add(AGERadioButton, new GridConstraints(3, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         courseBox2 = new JComboBox();
         courseBox2.setBackground(new Color(-26292));
+        Font courseBox2Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox2.getFont());
+        if (courseBox2Font != null) courseBox2.setFont(courseBox2Font);
         courseBox2.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+        defaultComboBoxModel1.addElement("COURSE");
+        courseBox2.setModel(defaultComboBoxModel1);
         courseBox2.setRequestFocusEnabled(false);
         panel.add(courseBox2, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         courseBox6 = new JComboBox();
         courseBox6.setBackground(new Color(-26292));
+        Font courseBox6Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox6.getFont());
+        if (courseBox6Font != null) courseBox6.setFont(courseBox6Font);
         courseBox6.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel2 = new DefaultComboBoxModel();
+        defaultComboBoxModel2.addElement("COURSE");
+        courseBox6.setModel(defaultComboBoxModel2);
         courseBox6.setRequestFocusEnabled(false);
         panel.add(courseBox6, new GridConstraints(7, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         course6Field = new JTextField();
@@ -666,7 +676,12 @@ public class StudentInfo {
         panel.add(NEXTButton, new GridConstraints(11, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         courseBox8 = new JComboBox();
         courseBox8.setBackground(new Color(-26292));
+        Font courseBox8Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox8.getFont());
+        if (courseBox8Font != null) courseBox8.setFont(courseBox8Font);
         courseBox8.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel3 = new DefaultComboBoxModel();
+        defaultComboBoxModel3.addElement("COURSE");
+        courseBox8.setModel(defaultComboBoxModel3);
         courseBox8.setRequestFocusEnabled(false);
         panel.add(courseBox8, new GridConstraints(9, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         EDITButton = new JButton();
@@ -685,12 +700,22 @@ public class StudentInfo {
         panel.add(course3Field, new GridConstraints(8, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         courseBox3 = new JComboBox();
         courseBox3.setBackground(new Color(-26292));
+        Font courseBox3Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox3.getFont());
+        if (courseBox3Font != null) courseBox3.setFont(courseBox3Font);
         courseBox3.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel4 = new DefaultComboBoxModel();
+        defaultComboBoxModel4.addElement("COURSE");
+        courseBox3.setModel(defaultComboBoxModel4);
         courseBox3.setRequestFocusEnabled(false);
         panel.add(courseBox3, new GridConstraints(8, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         courseBox4 = new JComboBox();
         courseBox4.setBackground(new Color(-26292));
+        Font courseBox4Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox4.getFont());
+        if (courseBox4Font != null) courseBox4.setFont(courseBox4Font);
         courseBox4.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel5 = new DefaultComboBoxModel();
+        defaultComboBoxModel5.addElement("COURSE");
+        courseBox4.setModel(defaultComboBoxModel5);
         courseBox4.setRequestFocusEnabled(false);
         panel.add(courseBox4, new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         course4Field = new JTextField();
@@ -729,11 +754,19 @@ public class StudentInfo {
         Font courseBox5Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox5.getFont());
         if (courseBox5Font != null) courseBox5.setFont(courseBox5Font);
         courseBox5.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel6 = new DefaultComboBoxModel();
+        defaultComboBoxModel6.addElement("COURSE");
+        courseBox5.setModel(defaultComboBoxModel6);
         courseBox5.setRequestFocusEnabled(false);
         panel.add(courseBox5, new GridConstraints(6, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         courseBox1 = new JComboBox();
         courseBox1.setBackground(new Color(-26292));
+        Font courseBox1Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox1.getFont());
+        if (courseBox1Font != null) courseBox1.setFont(courseBox1Font);
         courseBox1.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel7 = new DefaultComboBoxModel();
+        defaultComboBoxModel7.addElement("COURSE");
+        courseBox1.setModel(defaultComboBoxModel7);
         courseBox1.setRequestFocusEnabled(false);
         panel.add(courseBox1, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         course2Field = new JTextField();
@@ -752,19 +785,14 @@ public class StudentInfo {
         PREVButton.setRequestFocusEnabled(false);
         PREVButton.setText("PREV");
         panel.add(PREVButton, new GridConstraints(11, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        GRADESRadioButton = new JRadioButton();
-        GRADESRadioButton.setBackground(new Color(-6795155));
-        Font GRADESRadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, GRADESRadioButton.getFont());
-        if (GRADESRadioButtonFont != null) GRADESRadioButton.setFont(GRADESRadioButtonFont);
-        GRADESRadioButton.setForeground(new Color(-1));
-        GRADESRadioButton.setRequestFocusEnabled(false);
-        GRADESRadioButton.setText("GRADES");
-        panel.add(GRADESRadioButton, new GridConstraints(2, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         courseBox7 = new JComboBox();
         courseBox7.setBackground(new Color(-26292));
         Font courseBox7Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseBox7.getFont());
         if (courseBox7Font != null) courseBox7.setFont(courseBox7Font);
         courseBox7.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel8 = new DefaultComboBoxModel();
+        defaultComboBoxModel8.addElement("COURSE");
+        courseBox7.setModel(defaultComboBoxModel8);
         courseBox7.setRequestFocusEnabled(false);
         panel.add(courseBox7, new GridConstraints(8, 5, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         yearBox = new JComboBox();
@@ -817,26 +845,6 @@ public class StudentInfo {
         label1.setForeground(new Color(-1));
         label1.setText("SURNAME OR STUDENT #");
         panel.add(label1, new GridConstraints(0, 8, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        gradeListBox = new JComboBox();
-        gradeListBox.setBackground(new Color(-26292));
-        gradeListBox.setFocusable(false);
-        Font gradeListBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, gradeListBox.getFont());
-        if (gradeListBoxFont != null) gradeListBox.setFont(gradeListBoxFont);
-        gradeListBox.setForeground(new Color(-1));
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        defaultComboBoxModel1.addElement("Grade");
-        gradeListBox.setModel(defaultComboBoxModel1);
-        panel.add(gradeListBox, new GridConstraints(4, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        courseListBox = new JComboBox();
-        courseListBox.setBackground(new Color(-26292));
-        courseListBox.setFocusable(false);
-        Font courseListBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseListBox.getFont());
-        if (courseListBoxFont != null) courseListBox.setFont(courseListBoxFont);
-        courseListBox.setForeground(new Color(-1));
-        final DefaultComboBoxModel defaultComboBoxModel2 = new DefaultComboBoxModel();
-        defaultComboBoxModel2.addElement("Course");
-        courseListBox.setModel(defaultComboBoxModel2);
-        panel.add(courseListBox, new GridConstraints(5, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(98, 25), null, 0, false));
         minField = new JTextField();
         minField.setBackground(new Color(-3121058));
         minField.setForeground(new Color(-1));
@@ -893,6 +901,60 @@ public class StudentInfo {
         ADDButton.setRequestFocusEnabled(false);
         ADDButton.setText("ADD");
         panel.add(ADDButton, new GridConstraints(11, 9, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        courseListBox = new JComboBox();
+        courseListBox.setBackground(new Color(-26292));
+        courseListBox.setFocusable(false);
+        Font courseListBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, courseListBox.getFont());
+        if (courseListBoxFont != null) courseListBox.setFont(courseListBoxFont);
+        courseListBox.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel9 = new DefaultComboBoxModel();
+        defaultComboBoxModel9.addElement("Course");
+        courseListBox.setModel(defaultComboBoxModel9);
+        panel.add(courseListBox, new GridConstraints(6, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(98, 25), null, 0, false));
+        gradeListBox = new JComboBox();
+        gradeListBox.setBackground(new Color(-26292));
+        gradeListBox.setFocusable(false);
+        Font gradeListBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, gradeListBox.getFont());
+        if (gradeListBoxFont != null) gradeListBox.setFont(gradeListBoxFont);
+        gradeListBox.setForeground(new Color(-1));
+        final DefaultComboBoxModel defaultComboBoxModel10 = new DefaultComboBoxModel();
+        defaultComboBoxModel10.addElement("Grade");
+        gradeListBox.setModel(defaultComboBoxModel10);
+        panel.add(gradeListBox, new GridConstraints(5, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        AGERadioButton = new JRadioButton();
+        AGERadioButton.setBackground(new Color(-6795155));
+        AGERadioButton.setFocusable(false);
+        Font AGERadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, AGERadioButton.getFont());
+        if (AGERadioButtonFont != null) AGERadioButton.setFont(AGERadioButtonFont);
+        AGERadioButton.setForeground(new Color(-1));
+        AGERadioButton.setRequestFocusEnabled(false);
+        AGERadioButton.setText("AGE");
+        panel.add(AGERadioButton, new GridConstraints(4, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        GRADESRadioButton = new JRadioButton();
+        GRADESRadioButton.setBackground(new Color(-6795155));
+        Font GRADESRadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, GRADESRadioButton.getFont());
+        if (GRADESRadioButtonFont != null) GRADESRadioButton.setFont(GRADESRadioButtonFont);
+        GRADESRadioButton.setForeground(new Color(-1));
+        GRADESRadioButton.setRequestFocusEnabled(false);
+        GRADESRadioButton.setText("GRADES");
+        panel.add(GRADESRadioButton, new GridConstraints(3, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        ALPHABETICALLYRadioButton = new JRadioButton();
+        ALPHABETICALLYRadioButton.setBackground(new Color(-6795155));
+        ALPHABETICALLYRadioButton.setFocusable(false);
+        Font ALPHABETICALLYRadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, ALPHABETICALLYRadioButton.getFont());
+        if (ALPHABETICALLYRadioButtonFont != null) ALPHABETICALLYRadioButton.setFont(ALPHABETICALLYRadioButtonFont);
+        ALPHABETICALLYRadioButton.setForeground(new Color(-1));
+        ALPHABETICALLYRadioButton.setRequestFocusEnabled(false);
+        ALPHABETICALLYRadioButton.setText("ALPHABETICALLY");
+        panel.add(ALPHABETICALLYRadioButton, new GridConstraints(2, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        SEARCHButton = new JButton();
+        SEARCHButton.setBackground(new Color(-26292));
+        Font SEARCHButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, SEARCHButton.getFont());
+        if (SEARCHButtonFont != null) SEARCHButton.setFont(SEARCHButtonFont);
+        SEARCHButton.setForeground(new Color(-1));
+        SEARCHButton.setRequestFocusEnabled(false);
+        SEARCHButton.setText("SEARCH");
+        panel.add(SEARCHButton, new GridConstraints(1, 9, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

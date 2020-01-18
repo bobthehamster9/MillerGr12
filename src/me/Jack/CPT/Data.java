@@ -48,6 +48,7 @@ public class Data {
 
     public void readStudentData() throws IOException {
             BufferedReader br = new BufferedReader(new FileReader(new File(path + "StudentData.txt")));
+            keys.clear();
         while ((line = br.readLine()) != null) {
             String[] info = line.split(",");
             String key = info[2] + ", " + info[0];
