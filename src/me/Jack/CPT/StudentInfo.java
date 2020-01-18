@@ -342,7 +342,6 @@ public class StudentInfo {
         gradeBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("check if run twice");
                 if (gradeBox.getSelectedIndex() != 0)
                     grade = gradeBox.getSelectedIndex();
                 else
