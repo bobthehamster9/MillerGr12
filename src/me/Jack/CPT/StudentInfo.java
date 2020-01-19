@@ -12,13 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class StudentInfo {
 
     /*
     TODO
     Search
-        -search by surname or student #
         -sort by alphabet, alphabet w/ grades, marks and age
         -filter by marks
      */
@@ -96,6 +97,8 @@ public class StudentInfo {
     DefaultComboBoxModel course8 = new DefaultComboBoxModel();
 
     Data data = new Data();
+
+    ArrayList<String> tmpStudentList = new ArrayList<>();
 
     int[] coursesInt = new int[16];
     int grade;
@@ -353,14 +356,25 @@ public class StudentInfo {
         SEARCHButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tmpStudentList.clear();
                 String search = searchField.getText();
                 listModel.removeAllElements();
                 for (int i = 0; i < data.keys.size(); i++) {
                     if (data.keys.get(i).contains(search.toUpperCase())) {
-                        listModel.addElement(data.keys.get(i));
+                        //listModel.addElement(data.keys.get(i));
+                        tmpStudentList.add(data.keys.get(i));
                         System.out.println(data.keys.get(i));
                     }
                 }
+
+                if (ALPHABETICALLYRadioButton.isSelected()) {
+                    Collections.sort(tmpStudentList);
+                }
+
+                for (int i = 0; i < tmpStudentList.size(); i++) {
+                    listModel.addElement(tmpStudentList.get(i));
+                }
+                System.out.println(tmpStudentList);
                 studentList.repaint();
             }
         });
