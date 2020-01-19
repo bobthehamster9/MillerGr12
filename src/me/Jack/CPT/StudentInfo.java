@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -105,7 +106,7 @@ public class StudentInfo {
     ArrayList<String> tmpStudentList2 = new ArrayList<>();
 
     int[] coursesInt = new int[16];
-    int grade;
+    int grade, selectedIndex;
 
     public void setEditable(boolean editable) {
         //Perma disabled
@@ -260,40 +261,45 @@ public class StudentInfo {
         }
     }
 
+    public void setStudent(Object selected_row) {
+        String id[] = selected_row.toString().toUpperCase().split(", ");
+        firstNameField.setText(data.firstName.get(selected_row).toUpperCase());
+        lastNameField.setText(id[0]);
+        addressField.setText(data.address.get(selected_row).toUpperCase());
+        cityField.setText(data.city.get(selected_row).toUpperCase());
+        provBox.setSelectedIndex(data.province.get(selected_row));
+        postalField.setText(data.postalCode.get(selected_row));
+        studentNumField.setText(id[1]);
+        phoneField.setText(data.phoneNum.get(selected_row));
+        yearBox.setSelectedIndex(data.DOByear.get(selected_row));
+        dayBox.setSelectedIndex(data.DOBday.get(selected_row));
+        monthBox.setSelectedIndex(data.DOBmonth.get(selected_row));
+        genderBox.setSelectedIndex(data.gender.get(selected_row));
+        gradeBox.setSelectedIndex(data.grade.get(selected_row));
+        LocalDate birthdate = LocalDate.of(data.DOByear.get(selected_row) + 1999, data.DOBmonth.get(selected_row), data.DOBday.get(selected_row));
+        ageField.setText(data.calculateAge(birthdate) + "");
+        setCourseBox();
+        String[] courses = data.courses.get(selected_row).split("/");
+        for (int i = 0; i < courses.length; i++) {
+            coursesInt[i] = Integer.parseInt(courses[i]);
+        }
+        setCourseBoxesToIndex();
+        avgField.setText(calculateAverage() + "");
+        setEditable(false);
+    }
+
     public StudentInfo() throws IOException {
         studentList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting()) {
                     Object selected_row = ((JList) e.getSource()).getSelectedValue();
-                    String id[] = selected_row.toString().toUpperCase().split(", ");
-                    firstNameField.setText(data.firstName.get(selected_row).toUpperCase());
-                    lastNameField.setText(id[0]);
-                    addressField.setText(data.address.get(selected_row).toUpperCase());
-                    cityField.setText(data.city.get(selected_row).toUpperCase());
-                    provBox.setSelectedIndex(data.province.get(selected_row));
-                    postalField.setText(data.postalCode.get(selected_row));
-                    studentNumField.setText(id[1]);
-                    phoneField.setText(data.phoneNum.get(selected_row));
-                    yearBox.setSelectedIndex(data.DOByear.get(selected_row));
-                    dayBox.setSelectedIndex(data.DOBday.get(selected_row));
-                    monthBox.setSelectedIndex(data.DOBmonth.get(selected_row));
-                    genderBox.setSelectedIndex(data.gender.get(selected_row));
-                    gradeBox.setSelectedIndex(data.grade.get(selected_row));
-                    LocalDate birthdate = LocalDate.of(data.DOByear.get(selected_row) + 1999, data.DOBmonth.get(selected_row), data.DOBday.get(selected_row));
-                    ageField.setText(data.calculateAge(birthdate) + "");
-                    setCourseBox();
-                    String[] courses = data.courses.get(selected_row).split("/");
-                    for (int i = 0; i < courses.length; i++) {
-                        coursesInt[i] = Integer.parseInt(courses[i]);
-                    }
-                    setCourseBoxesToIndex();
-                    avgField.setText(calculateAverage() + "");
-                    setEditable(false);
+                    setStudent(selected_row);
+                    selectedIndex = ((JList) e.getSource()).getSelectedIndex();
+                    System.out.println(selectedIndex);
                 }
             }
         });
-
         SAVEButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -327,8 +333,6 @@ public class StudentInfo {
                 }
             }
         });
-
-
         ADDButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -338,6 +342,8 @@ public class StudentInfo {
                 studentNumField.setEditable(true);
                 avgField.setEditable(true);
                 ageField.setEditable(true);
+                studentList.setSelectedIndex(0);
+                selectedIndex = 0;
             }
         });
         EDITButton.addActionListener(new ActionListener() {
@@ -364,10 +370,11 @@ public class StudentInfo {
                 String search = searchField.getText();
                 listModel.removeAllElements();
                 for (int i = 0; i < data.keys.size(); i++) {
+                    System.out.println(data.keys);
                     if (data.keys.get(i).contains(search.toUpperCase())) {
                         //listModel.addElement(data.keys.get(i));
                         tmpStudentList.add(data.grade.get(data.keys.get(i)) + data.keys.get(i));
-                        System.out.println(tmpStudentList.get(i).substring(2));
+                        //System.out.println(tmpStudentList.get(i).substring(2));
                         System.out.println(data.keys.get(i));
                     }
                 }
@@ -385,6 +392,25 @@ public class StudentInfo {
                 }
                 System.out.println(tmpStudentList);
                 studentList.repaint();
+            }
+        });
+
+        NEXTButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((selectedIndex + 1) <= tmpStudentList.size() - 1) {
+                    setStudent(tmpStudentList.get(++selectedIndex).substring(1));
+                    studentList.setSelectedIndex(selectedIndex);
+                }
+            }
+        });
+        PREVButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((selectedIndex - 1) >= 0) {
+                    setStudent(tmpStudentList.get(--selectedIndex).substring(1));
+                    studentList.setSelectedIndex(selectedIndex);
+                }
             }
         });
     }
@@ -434,6 +460,12 @@ public class StudentInfo {
         data.initData();
 
         initStudentList();
+
+        for (int i = 0; i < data.keys.size(); i++) {
+            tmpStudentList.add(" " + data.keys.get(i));
+        }
+        System.out.println(data.keys);
+        System.out.println(tmpStudentList);
 
         clearFields();
     }
