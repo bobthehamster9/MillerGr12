@@ -3,8 +3,7 @@ package me.Jack.CPT;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Data {
 
@@ -122,10 +121,6 @@ public class Data {
                 courseTable.put(classes[i], "");
             }
         }
-    }
-
-    public void writeCourseData(){
-
     }
 
     public int calculateAge(LocalDate birthdate){

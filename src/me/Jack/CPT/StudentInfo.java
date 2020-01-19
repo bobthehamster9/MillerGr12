@@ -14,13 +14,15 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class StudentInfo {
 
     /*
     TODO
     Search
-        -sort by alphabet, alphabet w/ grades, marks and age
+        -sort by alphabet w/ grades, marks and age
         -filter by marks
      */
 
@@ -99,6 +101,8 @@ public class StudentInfo {
     Data data = new Data();
 
     ArrayList<String> tmpStudentList = new ArrayList<>();
+    //Holy shit this is bad programming but im just trying to finish it now
+    ArrayList<String> tmpStudentList2 = new ArrayList<>();
 
     int[] coursesInt = new int[16];
     int grade;
@@ -362,17 +366,22 @@ public class StudentInfo {
                 for (int i = 0; i < data.keys.size(); i++) {
                     if (data.keys.get(i).contains(search.toUpperCase())) {
                         //listModel.addElement(data.keys.get(i));
-                        tmpStudentList.add(data.keys.get(i));
+                        tmpStudentList.add(data.grade.get(data.keys.get(i)) + data.keys.get(i));
+                        System.out.println(tmpStudentList.get(i).substring(2));
                         System.out.println(data.keys.get(i));
                     }
                 }
 
                 if (ALPHABETICALLYRadioButton.isSelected()) {
-                    Collections.sort(tmpStudentList);
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(1)));
+                }
+
+                if (GRADESRadioButton.isSelected()) {
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(0, 1)));
                 }
 
                 for (int i = 0; i < tmpStudentList.size(); i++) {
-                    listModel.addElement(tmpStudentList.get(i));
+                    listModel.addElement(tmpStudentList.get(i).substring(1));
                 }
                 System.out.println(tmpStudentList);
                 studentList.repaint();
