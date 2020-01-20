@@ -83,7 +83,6 @@ public class Data {
             String [] reorganize = key.split(",");
             if (tmpFile.get(i).contains(reorganize[1])){
                 tmpFile.set(i, information);
-                System.out.println(tmpFile);
             }
         }
 
@@ -92,7 +91,6 @@ public class Data {
         }
 
         printWriter.close();
-        //System.out.println(tmpFile);
         tmpFile.clear();
     }
 
