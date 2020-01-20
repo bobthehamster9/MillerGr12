@@ -10,6 +10,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
@@ -402,9 +404,11 @@ public class StudentInfo {
                             String filteredCourse = courseListBox.getSelectedItem().toString();
                             if (totalCourses.contains(filteredCourse)) {
                                 int mark = Integer.parseInt(totalCourses.substring(totalCourses.indexOf(filteredCourse) + 7, totalCourses.indexOf(filteredCourse) + 9));
+                                max = Integer.parseInt(maxField.getText());
+                                min = Integer.parseInt(minField.getText());
                                 if (totalCourses.contains(filteredCourse)) {
-                                    //if (mark < max && mark > min)
-                                    tmpStudentList.add(totalCourses + data.age.get(key) + "" + data.grade.get(key) + key);
+                                    if (mark <= max && mark >= min)
+                                        tmpStudentList.add(totalCourses + data.age.get(key) + "" + data.grade.get(key) + key);
                                 }
                             }
                         } else {
@@ -469,18 +473,6 @@ public class StudentInfo {
                         break;
                 }
                 courseListBox.setModel(courseSearch);
-            }
-        });
-        maxField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                max = Integer.parseInt(maxField.getText());
-            }
-        });
-        minField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                min = Integer.parseInt(minField.getText());
             }
         });
     }
@@ -973,6 +965,9 @@ public class StudentInfo {
         panel.add(minField, new GridConstraints(9, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         maxField = new JTextField();
         maxField.setBackground(new Color(-3121058));
+        maxField.setFocusCycleRoot(true);
+        Font maxFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, maxField.getFont());
+        if (maxFieldFont != null) maxField.setFont(maxFieldFont);
         maxField.setForeground(new Color(-1));
         panel.add(maxField, new GridConstraints(8, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();

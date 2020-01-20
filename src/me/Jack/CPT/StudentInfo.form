@@ -640,6 +640,8 @@
         </constraints>
         <properties>
           <background color="-3121058"/>
+          <focusCycleRoot value="true"/>
+          <font name="Microsoft YaHei UI" style="1"/>
           <foreground color="-1"/>
         </properties>
       </component>
