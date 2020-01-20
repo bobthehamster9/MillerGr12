@@ -10,23 +10,17 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 
 public class StudentInfo {
 
     /*
     TODO
-    Validate postal code
-    Fix search by age
-    Search by grade specific
+    Fix search by age (miller doesn't care atm)
      */
 
     private JTextField firstNameField;
@@ -89,6 +83,10 @@ public class StudentInfo {
     private JTextField minField;
     private JComboBox dayBox;
     private JComboBox monthBox;
+    private JRadioButton grade9RadioButton;
+    private JRadioButton grade11RadioButton;
+    private JRadioButton grade10RadioButton;
+    private JRadioButton grade12RadioButton;
 
     DefaultListModel listModel = new DefaultListModel();
 
@@ -101,6 +99,8 @@ public class StudentInfo {
     DefaultComboBoxModel course7 = new DefaultComboBoxModel();
     DefaultComboBoxModel course8 = new DefaultComboBoxModel();
     DefaultComboBoxModel courseSearch = new DefaultComboBoxModel();
+
+    ArrayList<DefaultComboBoxModel> courseArray = new ArrayList<>();
 
     Data data = new Data();
 
@@ -172,55 +172,28 @@ public class StudentInfo {
         course8Field.setText("0");
     }
 
+    public void setCourseBoxContents(ArrayList arrayList) {
+        for (int i = 0; i < courseArray.size(); i++) {
+            courseArray.get(i).addAll(arrayList);
+        }
+    }
+
     public void setCourseBox() {
-        course1.removeAllElements();
-        course2.removeAllElements();
-        course3.removeAllElements();
-        course4.removeAllElements();
-        course5.removeAllElements();
-        course6.removeAllElements();
-        course7.removeAllElements();
-        course8.removeAllElements();
+        for (int i = 0; i < courseArray.size(); i++) {
+            courseArray.get(i).removeAllElements();
+        }
         switch (gradeBox.getSelectedIndex()) {
             case 1:
-                course1.addAll(data.course9Keys);
-                course2.addAll(data.course9Keys);
-                course3.addAll(data.course9Keys);
-                course4.addAll(data.course9Keys);
-                course5.addAll(data.course9Keys);
-                course6.addAll(data.course9Keys);
-                course7.addAll(data.course9Keys);
-                course8.addAll(data.course9Keys);
+                setCourseBoxContents(data.course9Keys);
                 break;
             case 2:
-                course1.addAll(data.course10Keys);
-                course2.addAll(data.course10Keys);
-                course3.addAll(data.course10Keys);
-                course4.addAll(data.course10Keys);
-                course5.addAll(data.course10Keys);
-                course6.addAll(data.course10Keys);
-                course7.addAll(data.course10Keys);
-                course8.addAll(data.course10Keys);
+                setCourseBoxContents(data.course10Keys);
                 break;
             case 3:
-                course1.addAll(data.course11Keys);
-                course2.addAll(data.course11Keys);
-                course3.addAll(data.course11Keys);
-                course4.addAll(data.course11Keys);
-                course5.addAll(data.course11Keys);
-                course6.addAll(data.course11Keys);
-                course7.addAll(data.course11Keys);
-                course8.addAll(data.course11Keys);
+                setCourseBoxContents(data.course11Keys);
                 break;
             case 4:
-                course1.addAll(data.course12Keys);
-                course2.addAll(data.course12Keys);
-                course3.addAll(data.course12Keys);
-                course4.addAll(data.course12Keys);
-                course5.addAll(data.course12Keys);
-                course6.addAll(data.course12Keys);
-                course7.addAll(data.course12Keys);
-                course8.addAll(data.course12Keys);
+                setCourseBoxContents(data.course12Keys);
                 break;
         }
         courseBox1.setModel(course1);
@@ -255,8 +228,8 @@ public class StudentInfo {
     public boolean checkFields() {
         System.out.println(phoneField.getText().length());
         if (firstNameField.getText() != "" && lastNameField.getText() != "" && addressField.getText() != "" &&
-                cityField.getText() != "" && postalField.getText().length() == 6 && studentNumField.getText().length() == 9
-                && phoneField.getText().length() == 10) {
+                cityField.getText() != "" && postalField.getText().replaceAll(" ", "").length() == 6 && studentNumField.getText().length() == 9
+                && phoneField.getText().replaceAll(" ", "").length() == 10) {
             return true;
         } else {
             return false;
@@ -316,7 +289,7 @@ public class StudentInfo {
                         avgField.setText(calculateAverage() + "");
                         //studentNum, firstName, lastName, address, city, province, postal code, phone#, year, day, month, gender, grade, course1, avg, course2, avg, course3, avg....
                         String student = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase() + "," + addressField.getText().toUpperCase() + "," + cityField.getText().toUpperCase() + "," +
-                                provBox.getSelectedIndex() + "," + postalField.getText() + "," + phoneField.getText() + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," + genderBox.getSelectedIndex()
+                                provBox.getSelectedIndex() + "," + postalField.getText().replaceAll(" ", "") + "," + phoneField.getText().replaceAll(" ", "") + "," + yearBox.getSelectedIndex() + "," + dayBox.getSelectedIndex() + "," + monthBox.getSelectedIndex() + "," + genderBox.getSelectedIndex()
                                 + "," + gradeBox.getSelectedIndex() + "," + courseBox1.getSelectedIndex() + "/" + course1Field.getText() + "/" + courseBox2.getSelectedIndex() + "/" + course2Field.getText() + "/" + courseBox3.getSelectedIndex()
                                 + "/" + course3Field.getText() + "/" + courseBox4.getSelectedIndex() + "/" + course4Field.getText() + "/" + courseBox5.getSelectedIndex() + "/" + course5Field.getText() + "/" + courseBox6.getSelectedIndex()
                                 + "/" + course6Field.getText() + "/" + courseBox7.getSelectedIndex() + "/" + course7Field.getText() + "/" + courseBox8.getSelectedIndex() + "/" + course8Field.getText() + "," + avgField.getText() + "," + ageField.getText();
@@ -448,7 +421,22 @@ public class StudentInfo {
                 }
 
                 for (int i = 0; i < tmpStudentList.size(); i++) {
-                    listModel.addElement(tmpStudentList.get(i).substring(75));
+                    if (!grade9RadioButton.isSelected() && !grade10RadioButton.isSelected() && !grade11RadioButton.isSelected() && !grade12RadioButton.isSelected())
+                        listModel.addElement(tmpStudentList.get(i).substring(75));
+                    else {
+                        char grade = tmpStudentList.get(i).charAt(74);
+                        if (grade9RadioButton.isSelected() && grade == '1')
+                            listModel.addElement(tmpStudentList.get(i).substring(75));
+
+                        if (grade10RadioButton.isSelected() && grade == '2')
+                            listModel.addElement(tmpStudentList.get(i).substring(75));
+
+                        if (grade11RadioButton.isSelected() && grade == '3')
+                            listModel.addElement(tmpStudentList.get(i).substring(75));
+
+                        if (grade12RadioButton.isSelected() && grade == '4')
+                            listModel.addElement(tmpStudentList.get(i).substring(75));
+                    }
                 }
                 studentList.repaint();
             }
@@ -535,6 +523,15 @@ public class StudentInfo {
         monthBox.setModel(new DefaultComboBoxModel<>(data.month));
         dayBox.setModel(new DefaultComboBoxModel<>(data.day));
 
+        courseArray.add(course1);
+        courseArray.add(course2);
+        courseArray.add(course3);
+        courseArray.add(course4);
+        courseArray.add(course5);
+        courseArray.add(course6);
+        courseArray.add(course7);
+        courseArray.add(course8);
+
         setEditable(false);
 
         data.initData();
@@ -570,7 +567,9 @@ public class StudentInfo {
                     }
                 }
             }
+
             tmpStudentList.add(totalCourses + data.age.get(key) + "" + data.grade.get(key) + key);
+            System.out.println();
         }
 
         clearFields();
@@ -651,7 +650,7 @@ public class StudentInfo {
         if (firstNameFieldFont != null) firstNameField.setFont(firstNameFieldFont);
         firstNameField.setForeground(new Color(-1));
         firstNameField.setInheritsPopupMenu(false);
-        firstNameField.setMargin(new Insets(2, 6, 2, 6));
+        firstNameField.setMargin(new Insets(2, 5, 2, 5));
         firstNameField.setText("");
         panel.add(firstNameField, new GridConstraints(0, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         lastNameLabel = new JLabel();
@@ -665,7 +664,7 @@ public class StudentInfo {
         lastNameField.setBackground(new Color(-16744793));
         Font lastNameFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, lastNameField.getFont());
         if (lastNameFieldFont != null) lastNameField.setFont(lastNameFieldFont);
-        lastNameField.setForeground(new Color(-1837313));
+        lastNameField.setForeground(new Color(-1));
         panel.add(lastNameField, new GridConstraints(0, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         streetAddressLabel = new JLabel();
         streetAddressLabel.setBackground(new Color(-1));
@@ -692,7 +691,7 @@ public class StudentInfo {
         cityField.setBackground(new Color(-16744793));
         Font cityFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, cityField.getFont());
         if (cityFieldFont != null) cityField.setFont(cityFieldFont);
-        cityField.setForeground(new Color(-1837313));
+        cityField.setForeground(new Color(-1));
         panel.add(cityField, new GridConstraints(1, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         provinceLabel = new JLabel();
         provinceLabel.setBackground(new Color(-1));
@@ -713,7 +712,7 @@ public class StudentInfo {
         postalField.setBackground(new Color(-16744793));
         Font postalFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, postalField.getFont());
         if (postalFieldFont != null) postalField.setFont(postalFieldFont);
-        postalField.setForeground(new Color(-1837313));
+        postalField.setForeground(new Color(-1));
         panel.add(postalField, new GridConstraints(2, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         studentNumberLabel = new JLabel();
         studentNumberLabel.setBackground(new Color(-1));
@@ -764,13 +763,13 @@ public class StudentInfo {
         phoneField.setBackground(new Color(-16744793));
         Font phoneFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, phoneField.getFont());
         if (phoneFieldFont != null) phoneField.setFont(phoneFieldFont);
-        phoneField.setForeground(new Color(-1837313));
+        phoneField.setForeground(new Color(-1));
         panel.add(phoneField, new GridConstraints(3, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         ageField = new JTextField();
         ageField.setBackground(new Color(-16744793));
         Font ageFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, ageField.getFont());
         if (ageFieldFont != null) ageField.setFont(ageFieldFont);
-        ageField.setForeground(new Color(-1837313));
+        ageField.setForeground(new Color(-1));
         panel.add(ageField, new GridConstraints(5, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 25), null, 0, false));
         studentNumField = new JTextField();
         studentNumField.setBackground(new Color(-16744793));
@@ -803,19 +802,19 @@ public class StudentInfo {
         course6Field.setBackground(new Color(-16744793));
         Font course6FieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, course6Field.getFont());
         if (course6FieldFont != null) course6Field.setFont(course6FieldFont);
-        course6Field.setForeground(new Color(-1837313));
+        course6Field.setForeground(new Color(-1));
         panel.add(course6Field, new GridConstraints(7, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         course7Field = new JTextField();
         course7Field.setBackground(new Color(-16744793));
         Font course7FieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, course7Field.getFont());
         if (course7FieldFont != null) course7Field.setFont(course7FieldFont);
-        course7Field.setForeground(new Color(-1837313));
+        course7Field.setForeground(new Color(-1));
         panel.add(course7Field, new GridConstraints(8, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         course8Field = new JTextField();
         course8Field.setBackground(new Color(-16744793));
         Font course8FieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, course8Field.getFont());
         if (course8FieldFont != null) course8Field.setFont(course8FieldFont);
-        course8Field.setForeground(new Color(-1837313));
+        course8Field.setForeground(new Color(-1));
         panel.add(course8Field, new GridConstraints(9, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         SAVEButton = new JButton();
         SAVEButton.setBackground(new Color(-16733976));
@@ -901,7 +900,7 @@ public class StudentInfo {
         course5Field.setBackground(new Color(-16744793));
         Font course5FieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, course5Field.getFont());
         if (course5FieldFont != null) course5Field.setFont(course5FieldFont);
-        course5Field.setForeground(new Color(-1837313));
+        course5Field.setForeground(new Color(-1));
         panel.add(course5Field, new GridConstraints(6, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         course1Field = new JTextField();
         course1Field.setBackground(new Color(-16744793));
@@ -979,7 +978,7 @@ public class StudentInfo {
         provBox.setFocusable(false);
         Font provBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, provBox.getFont());
         if (provBoxFont != null) provBox.setFont(provBoxFont);
-        provBox.setForeground(new Color(-263173));
+        provBox.setForeground(new Color(-1));
         provBox.setRequestFocusEnabled(true);
         panel.add(provBox, new GridConstraints(2, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         genderBox = new JComboBox();
@@ -987,7 +986,7 @@ public class StudentInfo {
         genderBox.setFocusable(false);
         Font genderBoxFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, genderBox.getFont());
         if (genderBoxFont != null) genderBox.setFont(genderBoxFont);
-        genderBox.setForeground(new Color(-1837313));
+        genderBox.setForeground(new Color(-1));
         genderBox.setRequestFocusEnabled(false);
         panel.add(genderBox, new GridConstraints(4, 6, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
@@ -1005,31 +1004,6 @@ public class StudentInfo {
         label1.setForeground(new Color(-1));
         label1.setText("SURNAME OR STUDENT #");
         panel.add(label1, new GridConstraints(0, 8, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        minField = new JTextField();
-        minField.setBackground(new Color(-16744793));
-        minField.setForeground(new Color(-1));
-        panel.add(minField, new GridConstraints(9, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        maxField = new JTextField();
-        maxField.setBackground(new Color(-16744793));
-        maxField.setFocusCycleRoot(true);
-        Font maxFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, maxField.getFont());
-        if (maxFieldFont != null) maxField.setFont(maxFieldFont);
-        maxField.setForeground(new Color(-1));
-        panel.add(maxField, new GridConstraints(8, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label2 = new JLabel();
-        label2.setBackground(new Color(-1));
-        Font label2Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, label2.getFont());
-        if (label2Font != null) label2.setFont(label2Font);
-        label2.setForeground(new Color(-1));
-        label2.setText("MAX GRADE");
-        panel.add(label2, new GridConstraints(8, 9, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label3 = new JLabel();
-        label3.setBackground(new Color(-1));
-        Font label3Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, label3.getFont());
-        if (label3Font != null) label3.setFont(label3Font);
-        label3.setForeground(new Color(-1));
-        label3.setText("MIN GRADE");
-        panel.add(label3, new GridConstraints(9, 9, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         dayBox = new JComboBox();
         dayBox.setBackground(new Color(-16744793));
         dayBox.setFocusable(false);
@@ -1047,7 +1021,10 @@ public class StudentInfo {
         monthBox.setRequestFocusEnabled(false);
         panel.add(monthBox, new GridConstraints(4, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(60, 25), new Dimension(50, 25), new Dimension(60, 25), 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
-        panel.add(scrollPane1, new GridConstraints(2, 8, 10, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        Font scrollPane1Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, scrollPane1.getFont());
+        if (scrollPane1Font != null) scrollPane1.setFont(scrollPane1Font);
+        scrollPane1.setForeground(new Color(-1));
+        panel.add(scrollPane1, new GridConstraints(2, 8, 10, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, new Dimension(200, 300), null, null, 0, false));
         studentList = new JList();
         studentList.setBackground(new Color(-16744793));
         studentList.setEnabled(true);
@@ -1071,7 +1048,7 @@ public class StudentInfo {
         if (courseListBoxFont != null) courseListBox.setFont(courseListBoxFont);
         courseListBox.setForeground(new Color(-1));
         final DefaultComboBoxModel defaultComboBoxModel9 = new DefaultComboBoxModel();
-        defaultComboBoxModel9.addElement("Course");
+        defaultComboBoxModel9.addElement("COURSE");
         courseListBox.setModel(defaultComboBoxModel9);
         panel.add(courseListBox, new GridConstraints(6, 9, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(98, 25), null, 0, false));
         gradeListBox = new JComboBox();
@@ -1118,6 +1095,61 @@ public class StudentInfo {
         SEARCHButton.setRequestFocusEnabled(false);
         SEARCHButton.setText("SEARCH");
         panel.add(SEARCHButton, new GridConstraints(1, 9, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label2 = new JLabel();
+        label2.setBackground(new Color(-1));
+        Font label2Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, label2.getFont());
+        if (label2Font != null) label2.setFont(label2Font);
+        label2.setForeground(new Color(-1));
+        label2.setText("MAX GRADE");
+        panel.add(label2, new GridConstraints(7, 9, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        maxField = new JTextField();
+        maxField.setBackground(new Color(-16744793));
+        maxField.setFocusCycleRoot(true);
+        Font maxFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, maxField.getFont());
+        if (maxFieldFont != null) maxField.setFont(maxFieldFont);
+        maxField.setForeground(new Color(-1));
+        panel.add(maxField, new GridConstraints(7, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label3 = new JLabel();
+        label3.setBackground(new Color(-1));
+        Font label3Font = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, label3.getFont());
+        if (label3Font != null) label3.setFont(label3Font);
+        label3.setForeground(new Color(-1));
+        label3.setText("MIN GRADE");
+        panel.add(label3, new GridConstraints(8, 9, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        minField = new JTextField();
+        minField.setBackground(new Color(-16744793));
+        Font minFieldFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, minField.getFont());
+        if (minFieldFont != null) minField.setFont(minFieldFont);
+        minField.setForeground(new Color(-1));
+        panel.add(minField, new GridConstraints(8, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        grade9RadioButton = new JRadioButton();
+        grade9RadioButton.setBackground(new Color(-16763815));
+        Font grade9RadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, grade9RadioButton.getFont());
+        if (grade9RadioButtonFont != null) grade9RadioButton.setFont(grade9RadioButtonFont);
+        grade9RadioButton.setForeground(new Color(-1));
+        grade9RadioButton.setText("Grade 9");
+        panel.add(grade9RadioButton, new GridConstraints(9, 9, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        grade11RadioButton = new JRadioButton();
+        grade11RadioButton.setBackground(new Color(-16763815));
+        Font grade11RadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, grade11RadioButton.getFont());
+        if (grade11RadioButtonFont != null) grade11RadioButton.setFont(grade11RadioButtonFont);
+        grade11RadioButton.setForeground(new Color(-1));
+        grade11RadioButton.setText("Grade 11");
+        panel.add(grade11RadioButton, new GridConstraints(9, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        grade10RadioButton = new JRadioButton();
+        grade10RadioButton.setBackground(new Color(-16763815));
+        Font grade10RadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, grade10RadioButton.getFont());
+        if (grade10RadioButtonFont != null) grade10RadioButton.setFont(grade10RadioButtonFont);
+        grade10RadioButton.setForeground(new Color(-1));
+        grade10RadioButton.setText("Grade 10");
+        panel.add(grade10RadioButton, new GridConstraints(10, 9, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        grade12RadioButton = new JRadioButton();
+        grade12RadioButton.setBackground(new Color(-16763815));
+        Font grade12RadioButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, grade12RadioButton.getFont());
+        if (grade12RadioButtonFont != null) grade12RadioButton.setFont(grade12RadioButtonFont);
+        grade12RadioButton.setForeground(new Color(-1));
+        grade12RadioButton.setText("Grade 12");
+        panel.add(grade12RadioButton, new GridConstraints(10, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -1145,5 +1177,4 @@ public class StudentInfo {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
-
 }
