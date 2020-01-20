@@ -24,7 +24,7 @@ public class StudentInfo {
 
     /*
     TODO
-    Validate phone #, postal code, student Num
+    Validate postal code
     Fix search by age
     Search by grade specific
      */
@@ -448,7 +448,7 @@ public class StudentInfo {
                 }
 
                 for (int i = 0; i < tmpStudentList.size(); i++) {
-                    listModel.addElement(tmpStudentList.get(i).substring(76));
+                    listModel.addElement(tmpStudentList.get(i).substring(75));
                 }
                 studentList.repaint();
             }
@@ -457,7 +457,7 @@ public class StudentInfo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((selectedIndex + 1) <= tmpStudentList.size() - 1) {
-                    setStudent(tmpStudentList.get(++selectedIndex).substring(1));
+                    setStudent(tmpStudentList.get(++selectedIndex).substring(75));
                     studentList.setSelectedIndex(selectedIndex);
                 }
             }
@@ -466,7 +466,7 @@ public class StudentInfo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((selectedIndex - 1) >= 0) {
-                    setStudent(tmpStudentList.get(--selectedIndex).substring(1));
+                    setStudent(tmpStudentList.get(--selectedIndex).substring(75));
                     studentList.setSelectedIndex(selectedIndex);
                 }
             }
@@ -542,7 +542,35 @@ public class StudentInfo {
         initStudentList();
 
         for (int i = 0; i < data.keys.size(); i++) {
-            tmpStudentList.add(" " + data.keys.get(i));
+            String key = data.keys.get(i);
+            String courses[] = data.courses.get(key).split("/");
+            String totalCourses = "";
+            for (int j = 0; j < courses.length; j += 2) {
+                int course = Integer.parseInt(courses[j]);
+                if (course >= 1) {
+                    switch (data.grade.get(key)) {
+                        case 1:
+                            totalCourses += data.course9Keys.get(course);
+                            break;
+                        case 2:
+                            totalCourses += data.course10Keys.get(course);
+                            break;
+                        case 3:
+                            totalCourses += data.course11Keys.get(course);
+                            break;
+                        case 4:
+                            totalCourses += data.course12Keys.get(course);
+                            break;
+                    }
+                    String courseMark = String.format("%03d", Integer.parseInt(courses[j + 1]));
+                    totalCourses += courseMark;
+                } else {
+                    if (j % 2 == 0) {
+                        totalCourses += "         ";
+                    }
+                }
+            }
+            tmpStudentList.add(totalCourses + data.age.get(key) + "" + data.grade.get(key) + key);
         }
 
         clearFields();
