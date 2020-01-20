@@ -105,7 +105,7 @@ public class StudentInfo {
     ArrayList<String> tmpStudentList = new ArrayList<>();
 
     int[] coursesInt = new int[16];
-    int grade, selectedIndex;
+    int grade, selectedIndex, max = 100, min = 0;
 
     public void setEditable(boolean editable) {
         //Perma disabled
@@ -364,31 +364,69 @@ public class StudentInfo {
         SEARCHButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //0,72 student classes/marks
                 tmpStudentList.clear();
                 String search = searchField.getText();
                 listModel.removeAllElements();
                 for (int i = 0; i < data.keys.size(); i++) {
                     if (data.keys.get(i).contains(search.toUpperCase())) {
                         String key = data.keys.get(i);
-                        tmpStudentList.add((data.age.get(key)) + "" + (data.grade.get(key)) + key);
+                        String courses[] = data.courses.get(key).split("/");
+                        String totalCourses = "";
+                        for (int j = 0; j < courses.length; j += 2) {
+                            int course = Integer.parseInt(courses[j]);
+                            if (course >= 1) {
+                                switch (data.grade.get(key)) {
+                                    case 1:
+                                        totalCourses += data.course9Keys.get(course);
+                                        break;
+                                    case 2:
+                                        totalCourses += data.course10Keys.get(course);
+                                        break;
+                                    case 3:
+                                        totalCourses += data.course11Keys.get(course);
+                                        break;
+                                    case 4:
+                                        totalCourses += data.course12Keys.get(course);
+                                        break;
+                                }
+                                String courseMark = String.format("%03d", Integer.parseInt(courses[j + 1]));
+                                totalCourses += courseMark;
+                            } else {
+                                if (j % 2 == 0) {
+                                    totalCourses += "         ";
+                                }
+                            }
+                        }
+                        if (courseListBox.getSelectedIndex() > 0) {
+                            String filteredCourse = courseListBox.getSelectedItem().toString();
+                            if (totalCourses.contains(filteredCourse)) {
+                                int mark = Integer.parseInt(totalCourses.substring(totalCourses.indexOf(filteredCourse) + 7, totalCourses.indexOf(filteredCourse) + 9));
+                                if (totalCourses.contains(filteredCourse)) {
+                                    //if (mark < max && mark > min)
+                                    tmpStudentList.add(totalCourses + data.age.get(key) + "" + data.grade.get(key) + key);
+                                }
+                            }
+                        } else {
+                            tmpStudentList.add(totalCourses + data.age.get(key) + "" + data.grade.get(key) + key);
+                        }
                     }
                 }
 
                 if (ALPHABETICALLYRadioButton.isSelected()) {
-                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(3)));
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(75)));
                 }
 
                 if (GRADESRadioButton.isSelected()) {
-                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(2, 3)));
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(74, 75)));
                 }
 
                 if (AGERadioButton.isSelected() && !GRADESRadioButton.isSelected() && !ALPHABETICALLYRadioButton.isSelected()) {
-                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(0, 2)));
-                    System.out.println("chungus");
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(72, 74)));
                 }
 
                 for (int i = 0; i < tmpStudentList.size(); i++) {
-                    listModel.addElement(tmpStudentList.get(i).substring(3));
+                    listModel.addElement(tmpStudentList.get(i).substring(75));
                 }
                 studentList.repaint();
             }
@@ -431,7 +469,18 @@ public class StudentInfo {
                         break;
                 }
                 courseListBox.setModel(courseSearch);
-                courseListBox.setSelectedIndex(0);
+            }
+        });
+        maxField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                max = Integer.parseInt(maxField.getText());
+            }
+        });
+        minField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                min = Integer.parseInt(minField.getText());
             }
         });
     }
