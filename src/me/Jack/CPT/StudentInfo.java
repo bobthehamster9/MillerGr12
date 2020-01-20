@@ -570,7 +570,9 @@ public class StudentInfo {
                     }
                 }
             }
+
             tmpStudentList.add(totalCourses + data.age.get(key) + "" + data.grade.get(key) + key);
+            System.out.println();
         }
 
         clearFields();
