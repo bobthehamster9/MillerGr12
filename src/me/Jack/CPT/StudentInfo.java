@@ -27,7 +27,6 @@ public class StudentInfo {
     Validate phone #, postal code, student Num
     Fix search by age
     Search by grade specific
-    Change colour scheme
      */
 
     private JTextField firstNameField;
@@ -254,8 +253,9 @@ public class StudentInfo {
     }
 
     public boolean checkFields() {
+        System.out.println(phoneField.getText().length());
         if (firstNameField.getText() != "" && lastNameField.getText() != "" && addressField.getText() != "" &&
-                cityField.getText() != "" && postalField.getText() != null && studentNumField.getText() != null
+                cityField.getText() != "" && postalField.getText().length() == 6 && studentNumField.getText().length() == 9
                 && phoneField.getText().length() == 10) {
             return true;
         } else {
@@ -328,6 +328,8 @@ public class StudentInfo {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "OOga", "Booga", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -446,7 +448,7 @@ public class StudentInfo {
                 }
 
                 for (int i = 0; i < tmpStudentList.size(); i++) {
-                    listModel.addElement(tmpStudentList.get(i).substring(75));
+                    listModel.addElement(tmpStudentList.get(i).substring(76));
                 }
                 studentList.repaint();
             }
@@ -455,7 +457,7 @@ public class StudentInfo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((selectedIndex + 1) <= tmpStudentList.size() - 1) {
-                    setStudent(tmpStudentList.get(++selectedIndex).substring(3));
+                    setStudent(tmpStudentList.get(++selectedIndex).substring(1));
                     studentList.setSelectedIndex(selectedIndex);
                 }
             }
@@ -464,7 +466,7 @@ public class StudentInfo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((selectedIndex - 1) >= 0) {
-                    setStudent(tmpStudentList.get(--selectedIndex).substring(3));
+                    setStudent(tmpStudentList.get(--selectedIndex).substring(1));
                     studentList.setSelectedIndex(selectedIndex);
                 }
             }
