@@ -30,6 +30,7 @@ public class Data {
     HashMap<String, Integer> gender = new HashMap<>();
     HashMap<String, Integer> grade = new HashMap<>();
     HashMap<String, String> courses = new HashMap<>();
+    HashMap<String, Integer> age = new HashMap<>();
 
     //Course code, course desc
     ArrayList<String> course9Keys = new ArrayList<>();
@@ -64,9 +65,9 @@ public class Data {
             gender.put(key, Integer.parseInt(info[11]));
             grade.put(key, Integer.parseInt(info[12]));
             courses.put(key, info[13]);
+            age.put(key, Integer.parseInt(info[15]));
             keys.add(key);
             tmpFile.add(line);
-            System.out.println(tmpFile);
         }
         br.close();
     }

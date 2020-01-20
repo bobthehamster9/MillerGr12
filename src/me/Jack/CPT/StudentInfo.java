@@ -23,8 +23,8 @@ public class StudentInfo {
     /*
     TODO
     Search
-        -sort by alphabet w/ grades, marks and age
         -filter by marks
+    Change colour scheme
      */
 
     private JTextField firstNameField;
@@ -98,12 +98,11 @@ public class StudentInfo {
     DefaultComboBoxModel course6 = new DefaultComboBoxModel();
     DefaultComboBoxModel course7 = new DefaultComboBoxModel();
     DefaultComboBoxModel course8 = new DefaultComboBoxModel();
+    DefaultComboBoxModel courseSearch = new DefaultComboBoxModel();
 
     Data data = new Data();
 
     ArrayList<String> tmpStudentList = new ArrayList<>();
-    //Holy shit this is bad programming but im just trying to finish it now
-    ArrayList<String> tmpStudentList2 = new ArrayList<>();
 
     int[] coursesInt = new int[16];
     int grade, selectedIndex;
@@ -296,7 +295,6 @@ public class StudentInfo {
                     Object selected_row = ((JList) e.getSource()).getSelectedValue();
                     setStudent(selected_row);
                     selectedIndex = ((JList) e.getSource()).getSelectedIndex();
-                    System.out.println(selectedIndex);
                 }
             }
         });
@@ -370,36 +368,36 @@ public class StudentInfo {
                 String search = searchField.getText();
                 listModel.removeAllElements();
                 for (int i = 0; i < data.keys.size(); i++) {
-                    System.out.println(data.keys);
                     if (data.keys.get(i).contains(search.toUpperCase())) {
-                        //listModel.addElement(data.keys.get(i));
-                        tmpStudentList.add(data.grade.get(data.keys.get(i)) + data.keys.get(i));
-                        //System.out.println(tmpStudentList.get(i).substring(2));
-                        System.out.println(data.keys.get(i));
+                        String key = data.keys.get(i);
+                        tmpStudentList.add((data.age.get(key)) + "" + (data.grade.get(key)) + key);
                     }
                 }
 
                 if (ALPHABETICALLYRadioButton.isSelected()) {
-                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(1)));
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(3)));
                 }
 
                 if (GRADESRadioButton.isSelected()) {
-                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(0, 1)));
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(2, 3)));
+                }
+
+                if (AGERadioButton.isSelected() && !GRADESRadioButton.isSelected() && !ALPHABETICALLYRadioButton.isSelected()) {
+                    Collections.sort(tmpStudentList, Comparator.comparing(s -> s.substring(0, 2)));
+                    System.out.println("chungus");
                 }
 
                 for (int i = 0; i < tmpStudentList.size(); i++) {
-                    listModel.addElement(tmpStudentList.get(i).substring(1));
+                    listModel.addElement(tmpStudentList.get(i).substring(3));
                 }
-                System.out.println(tmpStudentList);
                 studentList.repaint();
             }
         });
-
         NEXTButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((selectedIndex + 1) <= tmpStudentList.size() - 1) {
-                    setStudent(tmpStudentList.get(++selectedIndex).substring(1));
+                    setStudent(tmpStudentList.get(++selectedIndex).substring(3));
                     studentList.setSelectedIndex(selectedIndex);
                 }
             }
@@ -408,9 +406,32 @@ public class StudentInfo {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((selectedIndex - 1) >= 0) {
-                    setStudent(tmpStudentList.get(--selectedIndex).substring(1));
+                    setStudent(tmpStudentList.get(--selectedIndex).substring(3));
                     studentList.setSelectedIndex(selectedIndex);
                 }
+            }
+        });
+        gradeListBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selection = gradeListBox.getSelectedIndex();
+                courseSearch.removeAllElements();
+                switch (selection) {
+                    case 1:
+                        courseSearch.addAll(data.course9Keys);
+                        break;
+                    case 2:
+                        courseSearch.addAll(data.course10Keys);
+                        break;
+                    case 3:
+                        courseSearch.addAll(data.course11Keys);
+                        break;
+                    case 4:
+                        courseSearch.addAll(data.course12Keys);
+                        break;
+                }
+                courseListBox.setModel(courseSearch);
+                courseListBox.setSelectedIndex(0);
             }
         });
     }
@@ -464,8 +485,6 @@ public class StudentInfo {
         for (int i = 0; i < data.keys.size(); i++) {
             tmpStudentList.add(" " + data.keys.get(i));
         }
-        System.out.println(data.keys);
-        System.out.println(tmpStudentList);
 
         clearFields();
     }
