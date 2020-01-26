@@ -87,6 +87,7 @@ public class StudentInfo {
     private JRadioButton grade11RadioButton;
     private JRadioButton grade10RadioButton;
     private JRadioButton grade12RadioButton;
+    private JButton DELETESTUDENTButton;
 
     DefaultListModel listModel = new DefaultListModel();
 
@@ -481,6 +482,18 @@ public class StudentInfo {
                 courseListBox.setModel(courseSearch);
             }
         });
+        DELETESTUDENTButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String key = studentNumField.getText() + "," + firstNameField.getText().toUpperCase() + "," + lastNameField.getText().toUpperCase();
+                for (int i = 0; i < data.tmpFile.size(); i++) {
+                    if (data.tmpFile.get(i).contains(key)) {
+                        System.out.println(key);
+                        data.tmpFile.remove(i);
+                    }
+                }
+            }
+        });
     }
 
     public void removeBorders() {
@@ -507,8 +520,8 @@ public class StudentInfo {
     }
 
     public void initStudentList() {
+        listModel.removeAllElements();
         for (int i = 0; i < data.keys.size(); i++) {
-            if (!listModel.contains(data.keys.get(i)))
                 listModel.addElement(data.keys.get(i));
         }
         studentList.setModel(listModel);
@@ -650,7 +663,7 @@ public class StudentInfo {
         if (firstNameFieldFont != null) firstNameField.setFont(firstNameFieldFont);
         firstNameField.setForeground(new Color(-1));
         firstNameField.setInheritsPopupMenu(false);
-        firstNameField.setMargin(new Insets(2, 5, 2, 5));
+        firstNameField.setMargin(new Insets(2, 6, 2, 6));
         firstNameField.setText("");
         panel.add(firstNameField, new GridConstraints(0, 2, 1, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         lastNameLabel = new JLabel();
@@ -1150,6 +1163,13 @@ public class StudentInfo {
         grade12RadioButton.setForeground(new Color(-1));
         grade12RadioButton.setText("Grade 12");
         panel.add(grade12RadioButton, new GridConstraints(10, 10, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        DELETESTUDENTButton = new JButton();
+        DELETESTUDENTButton.setBackground(new Color(-16733976));
+        Font DELETESTUDENTButtonFont = this.$$$getFont$$$("Microsoft YaHei UI", Font.BOLD, -1, DELETESTUDENTButton.getFont());
+        if (DELETESTUDENTButtonFont != null) DELETESTUDENTButton.setFont(DELETESTUDENTButtonFont);
+        DELETESTUDENTButton.setForeground(new Color(-1));
+        DELETESTUDENTButton.setText("DELETE STUDENT");
+        panel.add(DELETESTUDENTButton, new GridConstraints(11, 2, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -1177,4 +1197,5 @@ public class StudentInfo {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }

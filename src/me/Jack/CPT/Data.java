@@ -117,7 +117,6 @@ public class Data {
                         course12Keys.add(classes[i]);
                         break;
                 }
-                courseTable.put(classes[i], "");
             }
         }
     }
