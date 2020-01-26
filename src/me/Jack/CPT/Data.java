@@ -37,7 +37,6 @@ public class Data {
     ArrayList<String> course10Keys = new ArrayList<>();
     ArrayList<String> course11Keys = new ArrayList<>();
     ArrayList<String> course12Keys = new ArrayList<>();
-    HashMap<String, String> courseTable = new HashMap<>();
 
     ArrayList<String> tmpFile = new ArrayList<>();
 
@@ -118,6 +117,62 @@ public class Data {
                         break;
                 }
             }
+        }
+    }
+
+    public void writeCourseData(String course, int grade) throws IOException {
+        PrintWriter printWriter = new PrintWriter(path + "CourseData.txt");
+        if(!course9Keys.contains(course) && !course10Keys.contains(course) && !course11Keys.contains(course) && !course12Keys.contains(course)){
+            switch (grade){
+                case 0:
+                    course9Keys.add(course);
+                    break;
+                case 1:
+                    course10Keys.add(course);
+                    break;
+                case 2:
+                    course11Keys.add(course);
+                    break;
+                case 3:
+                    course12Keys.add(course);
+                    break;
+            }
+            for (int i = 0; i < course9Keys.size(); i++) {
+                if(i == course9Keys.size()-1)
+                    printWriter.print(course9Keys.get(i));
+                else
+                    printWriter.print(course9Keys.get(i) + ",");
+            }
+
+            printWriter.println();
+
+            for (int i = 0; i < course10Keys.size(); i++) {
+                if(i == course10Keys.size()-1)
+                    printWriter.print(course10Keys.get(i));
+                else
+                    printWriter.print(course10Keys.get(i) + ",");
+            }
+
+            printWriter.println();
+
+            for (int i = 0; i < course11Keys.size(); i++) {
+                if (i == course11Keys.size()-1)
+                    printWriter.print(course11Keys.get(i));
+                else
+                    printWriter.print(course12Keys.get(i) + ",");
+            }
+
+            printWriter.println();
+
+            for (int i = 0; i < course12Keys.size(); i++) {
+                if (i == course12Keys.size()-1)
+                    printWriter.print(course12Keys.get(i));
+                else
+                    printWriter.print(course12Keys.get(i) + ",");
+            }
+
+            printWriter.close();
+
         }
     }
 
