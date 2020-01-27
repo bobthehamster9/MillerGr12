@@ -511,7 +511,7 @@ public class StudentInfo {
                     courseType = "O";
                 }
 
-                String course = CourseIDField.getText().toUpperCase() + "" + CourseGradeBox.getSelectedIndex() + courseType + "1";
+                String course = CourseIDField.getText().toUpperCase() + (CourseGradeBox.getSelectedIndex() + 1) + courseType + "1";
                 try {
                     data.writeCourseData(course, CourseGradeBox.getSelectedIndex());
                 } catch (IOException exception) {

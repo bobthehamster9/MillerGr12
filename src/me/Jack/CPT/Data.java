@@ -122,8 +122,8 @@ public class Data {
 
     public void writeCourseData(String course, int grade) throws IOException {
         PrintWriter printWriter = new PrintWriter(path + "CourseData.txt");
-        if(!course9Keys.contains(course) && !course10Keys.contains(course) && !course11Keys.contains(course) && !course12Keys.contains(course)){
-            switch (grade){
+        if(!course9Keys.contains(course) && !course10Keys.contains(course) && !course11Keys.contains(course) && !course12Keys.contains(course)) {
+            switch (grade) {
                 case 0:
                     course9Keys.add(course);
                     break;
@@ -137,6 +137,7 @@ public class Data {
                     course12Keys.add(course);
                     break;
             }
+        }
             for (int i = 0; i < course9Keys.size(); i++) {
                 if(i == course9Keys.size()-1)
                     printWriter.print(course9Keys.get(i));
@@ -159,7 +160,7 @@ public class Data {
                 if (i == course11Keys.size()-1)
                     printWriter.print(course11Keys.get(i));
                 else
-                    printWriter.print(course12Keys.get(i) + ",");
+                    printWriter.print(course11Keys.get(i) + ",");
             }
 
             printWriter.println();
@@ -172,8 +173,6 @@ public class Data {
             }
 
             printWriter.close();
-
-        }
     }
 
     public int calculateAge(LocalDate birthdate){
